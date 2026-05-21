@@ -1,0 +1,14 @@
+[
+  {
+    "case_id": "FR-001",
+    "note": "KYC verification fee",
+    "beneficiary": "unknown_agent@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "FR-002",
+    "note": "urgent verification",
+    "beneficiary": "external_service@upi",
+    "label": "SCAM_LIKE"
+  }
+]

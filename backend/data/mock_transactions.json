@@ -1,0 +1,14 @@
+[
+  {
+    "ref": "TXN-9911",
+    "amount": 18500,
+    "beneficiary": "Priya Sharma",
+    "status": "Allowed"
+  },
+  {
+    "ref": "TXN-9912",
+    "amount": 25000,
+    "beneficiary": "unknown_agent@upi",
+    "status": "Blocked"
+  }
+]

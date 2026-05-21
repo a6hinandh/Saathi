@@ -1,0 +1,14 @@
+[
+  {
+    "profile": "normal",
+    "avg_key_interval": 250,
+    "typing_variance": 40,
+    "hesitation_delay": 5
+  },
+  {
+    "profile": "high_risk",
+    "avg_key_interval": 420,
+    "typing_variance": 110,
+    "hesitation_delay": 18
+  }
+]

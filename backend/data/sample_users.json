@@ -1,0 +1,14 @@
+[
+  {
+    "customer_id": "CUST-10021",
+    "name": "Asha Menon",
+    "account": "SB A/C ••4821",
+    "risk_profile": "standard"
+  },
+  {
+    "customer_id": "CUST-10022",
+    "name": "Raghav Iyer",
+    "account": "SB A/C ••7310",
+    "risk_profile": "watchlist"
+  }
+]
