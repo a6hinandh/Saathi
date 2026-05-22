@@ -1,63 +1,63 @@
-export const bankName = 'Northfield Bank';
+export const bankName = 'Saathi Bank of India';
 
 export const publicHighlights = [
-  { label: 'Digital uptime', value: '99.98%' },
-  { label: 'Payments processed', value: '1.2M+' },
-  { label: 'Customer rating', value: '4.9/5' }
+  { label: 'Digital Uptime', value: '99.99%' },
+  { label: 'UPI Transactions Today', value: '4.8M+' },
+  { label: 'Customer Satisfaction', value: '4.95/5' }
 ];
 
 export const featureCards = [
   {
-    title: 'Everyday banking',
-    description: 'View balances, move money between accounts, and manage scheduled payments from a single dashboard.'
+    title: 'Retail & Corporate Banking',
+    description: 'Check balances, download statements, transfer funds via UPI/IMPS/NEFT/RTGS, and manage scheduled payments seamlessly.'
   },
   {
-    title: 'Card and account controls',
-    description: 'Freeze cards, raise limits, review device activity, and keep account preferences close at hand.'
+    title: 'Card and Account Controls',
+    description: 'Instantly block debit/credit cards, manage domestic & international transaction limits, and secure your accounts.'
   },
   {
-    title: 'Payments and payees',
-    description: 'Send transfers through UPI, IMPS, NEFT, or scheduled instructions with payee verification.'
+    title: 'UPI & Fast Payments',
+    description: 'Transfer funds instantly using BHIM UPI, IMPS, or set up e-mandates and standing instructions with instant verification.'
   },
   {
-    title: 'Statements and support',
-    description: 'Download statements, open service requests, and reach support without leaving the secure session.'
+    title: 'Digital Safety & Support',
+    description: 'Access 24x7 security support, report cyber fraud directly, and lock/unlock your internet banking access instantly.'
   }
 ];
 
 export const loginBenefits = [
-  'Secure sign-in with OTP and device trust.',
-  'Access to accounts, cards, payments, and statements.',
-  'Always-on support and self-service settings.'
+  'Secure sign-in with 2FA OTP and device binding.',
+  'Access to Digital Rupee (e-Rupee) and banking products.',
+  'Robust anti-coercion & behavioral security protocols.'
 ];
 
 export const dashboardStats = [
-  { label: 'Available balance', value: 'INR 3,41,820', hint: 'Across linked accounts' },
-  { label: 'Scheduled payments', value: '4', hint: 'Next in the morning batch' },
-  { label: 'Saved payees', value: '18', hint: 'Verified and active' },
-  { label: 'Cards in use', value: '2', hint: '1 debit, 1 credit' }
+  { label: 'Available Balance', value: '₹3,41,820.00', hint: 'Across linked accounts' },
+  { label: 'Scheduled Payments', value: '4', hint: 'Next in the morning batch' },
+  { label: 'Saved Beneficiaries', value: '18', hint: 'Verified & active' },
+  { label: 'Active Cards', value: '2', hint: '1 Debit (RuPay), 1 Credit (Visa)' }
 ];
 
 export const accountCards = [
   {
-    name: 'Everyday Current',
+    name: 'Savings Bank Account',
     number: '•• 4821',
-    balance: 'INR 2,48,300.18',
-    status: 'Primary operating account',
+    balance: '₹2,48,300.18',
+    status: 'Primary Account (SB-102)',
     tone: 'emerald'
   },
   {
-    name: 'Wealth Savings',
+    name: 'Current Operative Account',
     number: '•• 7310',
-    balance: 'INR 93,520.00',
-    status: 'Linked savings account',
+    balance: '₹93,520.00',
+    status: 'Linked Operating Account',
     tone: 'slate'
   },
   {
-    name: 'Flexi Deposit',
+    name: 'Flexi Fixed Deposit',
     number: '•• 1149',
-    balance: 'INR 1,00,000.00',
-    status: 'Auto-renewing deposit',
+    balance: '₹1,00,000.00',
+    status: 'Auto-renewal active',
     tone: 'gold'
   }
 ];
@@ -65,81 +65,81 @@ export const accountCards = [
 export const recentActivity = [
   {
     date: '22 May',
-    title: 'UPI transfer to Priya Sharma',
-    amount: '-INR 18,500',
+    title: 'UPI Transfer to Priya Sharma',
+    amount: '-₹18,500.00',
     status: 'Completed',
-    detail: 'Northfield UPI rail'
+    detail: 'Ref: UPI/614392810471'
   },
   {
     date: '22 May',
-    title: 'Salary credit from Axis Studio LLP',
-    amount: '+INR 96,200',
+    title: 'Salary Credit - Axis Studio LLP',
+    amount: '+₹96,200.00',
     status: 'Completed',
-    detail: 'Automated inward transfer'
+    detail: 'Ref: NEFT/AXISN2614920'
   },
   {
     date: '21 May',
-    title: 'IMPS transfer to Vivek Traders',
-    amount: '-INR 25,000',
+    title: 'IMPS Transfer to Vivek Traders',
+    amount: '-₹25,000.00',
     status: 'Pending',
-    detail: 'Scheduled after verification'
+    detail: 'Under verification check'
   },
   {
     date: '21 May',
-    title: 'Bill payment - electricity',
-    amount: '-INR 4,820',
+    title: 'Electricity Bill - BESCOM',
+    amount: '-₹4,820.00',
     status: 'Completed',
-    detail: 'Auto-debit enabled'
+    detail: 'Ref: BBPS/BS8210982'
   }
 ];
 
 export const payees = [
-  { name: 'Priya Sharma', account: 'UPI priya.sharma@upi', bank: 'Northfield Bank', label: 'Verified' },
-  { name: 'Vivek Traders', account: 'IMPS 004821774512', bank: 'National Payments', label: 'Active' },
-  { name: 'Maya Fernandes', account: 'NEFT 1872210901', bank: 'Northfield Bank', label: 'Verified' },
-  { name: 'Rohan Mehta', account: 'UPI rohan.mehta@upi', bank: 'Green Valley Bank', label: 'Trusted' }
+  { name: 'Priya Sharma', account: 'UPI: priya.sharma@upi', bank: 'State Bank of India (SBIN0001243)', label: 'Verified' },
+  { name: 'Vivek Traders', account: 'A/c: 004821774512 (IFSC: ICIC0000048)', bank: 'ICICI Bank Ltd', label: 'Active' },
+  { name: 'Maya Fernandes', account: 'A/c: 1872210901 (IFSC: HDFC0000287)', bank: 'HDFC Bank Ltd', label: 'Verified' },
+  { name: 'Rohan Mehta', account: 'UPI: rohan.mehta@okaxis', bank: 'Axis Bank Ltd', label: 'Trusted' }
 ];
 
 export const cardPortfolio = [
   {
-    name: 'Northfield Platinum Debit',
+    name: 'Saathi RuPay Platinum Debit',
     number: '•• 2287',
-    limit: 'Daily limit INR 1,50,000',
+    limit: 'Daily Limit: ₹1,50,000.00',
     status: 'Active'
   },
   {
-    name: 'Northfield Select Credit',
+    name: 'Saathi Select Credit Card',
     number: '•• 6643',
-    limit: 'Outstanding INR 24,860',
-    status: 'Statement due 3 Jun'
+    limit: 'Outstanding: ₹24,860.00',
+    status: 'Statement Due: 3 Jun'
   }
 ];
 
 export const securityItems = [
-  'Two-factor authentication is enabled for payments above your set threshold.',
-  'Trusted device history shows the last five sign-ins.',
-  'A spending alert is active for card and transfer activity.',
-  'Session timeout is set to 10 minutes on shared devices.'
+  'Multi-factor OTP authentication is enabled for all transactions above ₹10,000.',
+  'Device trust binding is active for your registered primary mobile number.',
+  'Real-time behavioral security engine (Saathi SDK) is active on this session.',
+  'Automatic logout warning will trigger after 5 minutes of inactivity.'
 ];
 
 export const supportTopics = [
-  { title: 'Lost or stolen card', detail: 'Freeze the card and request a replacement from the support desk.' },
-  { title: 'Payment not received', detail: 'Track IMPS, NEFT, and UPI references from the statements page.' },
-  { title: 'Change mobile number', detail: 'Update your profile and confirm the change with an OTP.' },
-  { title: 'Need branch help', detail: 'Use branch locator, call support, or schedule a callback.' }
+  { title: 'Block Debit / Credit Card', detail: 'Freeze your card instantly in the Cards tab or call emergency support at 1800-11-2211.' },
+  { title: 'Report Cyber Fraud (1930)', detail: 'Directly file claims for unauthorized payment operations within 24 hours to recover funds.' },
+  { title: 'Update Aadhaar & PAN Card', detail: 'Submit KYC updates online through secure Aadhaar OTP verification.' },
+  { title: 'UPI Limit & PIN Reset', detail: 'Reset UPI PIN or raise daily limits for safe merchant transfers.' }
 ];
 
 export const fraudAlerts = [
-  { label: 'Session security', value: 'Enabled', detail: 'Two-factor login active' },
-  { label: 'Saved payees', value: '18', detail: 'Verified recipients' },
-  { label: 'Card controls', value: 'Active', detail: 'Freeze and limit settings ready' },
-  { label: 'Alerts', value: 'On', detail: 'Large transfers and card spending' }
+  { label: 'Session Security', value: 'Enabled', detail: 'Behavior monitoring active' },
+  { label: 'Registered Payees', value: '18', detail: 'Trusted list verified' },
+  { label: 'Card Controls', value: 'Active', detail: 'Limits locked' },
+  { label: 'Fraud Helpline', value: '1930', detail: 'Emergency reporting ready' }
 ];
 
 export const statementRows = [
-  { ref: 'TXN-9911', date: '22 May 2026', beneficiary: 'Priya Sharma', amount: '-INR 18,500', status: 'Completed' },
-  { ref: 'TXN-9912', date: '22 May 2026', beneficiary: 'Axis Studio LLP', amount: '+INR 96,200', status: 'Completed' },
-  { ref: 'TXN-9913', date: '21 May 2026', beneficiary: 'Vivek Traders', amount: '-INR 25,000', status: 'Pending' },
-  { ref: 'TXN-9914', date: '21 May 2026', beneficiary: 'Electricity Board', amount: '-INR 4,820', status: 'Completed' },
-  { ref: 'TXN-9915', date: '20 May 2026', beneficiary: 'Maya Fernandes', amount: '-INR 7,250', status: 'Scheduled' }
+  { ref: 'TXN-9911', date: '22 May 2026', beneficiary: 'Priya Sharma', amount: '-₹18,500.00', status: 'Completed' },
+  { ref: 'TXN-9912', date: '22 May 2026', beneficiary: 'Axis Studio LLP', amount: '+₹96,200.00', status: 'Completed' },
+  { ref: 'TXN-9913', date: '21 May 2026', beneficiary: 'Vivek Traders', amount: '-₹25,000.00', status: 'Pending' },
+  { ref: 'TXN-9914', date: '21 May 2026', beneficiary: 'Electricity Board (BESCOM)', amount: '-₹4,820.00', status: 'Completed' },
+  { ref: 'TXN-9915', date: '20 May 2026', beneficiary: 'Maya Fernandes', amount: '-₹7,250.00', status: 'Scheduled' }
 ];

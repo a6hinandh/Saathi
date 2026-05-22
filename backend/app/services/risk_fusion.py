@@ -24,6 +24,8 @@ class RiskFusionEngine:
             + components.transaction_risk * 14
             + components.device_risk * 8
         )
+        if coercion_label == 'SCAM_GUIDED':
+            score = max(score, 85.0)
         final_score = max(0, min(100, int(round(score))))
         if final_score <= 30:
             risk_level, action = 'LOW', 'ALLOW'

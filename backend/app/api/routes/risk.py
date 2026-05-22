@@ -38,6 +38,26 @@ def evaluate_risk(
     explanation_engine: ExplanationEngine = Depends(get_explanation_engine),
     policy_engine: PolicyEngine = Depends(get_policy_engine)
 ) -> RiskEvaluationResponse:
+    # Resolve FastAPI Depends objects if called directly in tests
+    if type(anomaly_detector).__name__ == 'Depends' or hasattr(anomaly_detector, 'dependency'):
+        anomaly_detector = get_anomaly_detector()
+    if type(scam_classifier).__name__ == 'Depends' or hasattr(scam_classifier, 'dependency'):
+        scam_classifier = get_scam_classifier()
+    if type(hesitation_engine).__name__ == 'Depends' or hasattr(hesitation_engine, 'dependency'):
+        hesitation_engine = get_hesitation_engine()
+    if type(coercion_engine).__name__ == 'Depends' or hasattr(coercion_engine, 'dependency'):
+        coercion_engine = get_coercion_engine()
+    if type(transaction_risk_service).__name__ == 'Depends' or hasattr(transaction_risk_service, 'dependency'):
+        transaction_risk_service = get_transaction_risk_service()
+    if type(device_risk_service).__name__ == 'Depends' or hasattr(device_risk_service, 'dependency'):
+        device_risk_service = get_device_risk_service()
+    if type(risk_fusion_engine).__name__ == 'Depends' or hasattr(risk_fusion_engine, 'dependency'):
+        risk_fusion_engine = get_risk_fusion_engine()
+    if type(explanation_engine).__name__ == 'Depends' or hasattr(explanation_engine, 'dependency'):
+        explanation_engine = get_explanation_engine()
+    if type(policy_engine).__name__ == 'Depends' or hasattr(policy_engine, 'dependency'):
+        policy_engine = get_policy_engine()
+
     anomaly = anomaly_detector.evaluate(request.features)
     scam = scam_classifier.predict(request.note)
     hesitation = hesitation_engine.evaluate(request.features)
@@ -57,6 +77,25 @@ def evaluate_risk(
     fusion = risk_fusion_engine.fuse(components, coercion.label)
     action = policy_engine.decide(fusion.final_risk_score)
     explanations = explanation_engine.build(request.note, request.beneficiary, components, coercion.label)
+
+    from datetime import datetime, timezone
+    from ...models.schemas import AlertItem
+    from ...services.dashboard_service import add_alert
+
+    alert_item = AlertItem(
+        customer_id=request.customer_id,
+        session_id=request.session_id,
+        beneficiary=request.beneficiary,
+        amount=request.amount,
+        risk_score=fusion.final_risk_score,
+        risk_level=fusion.risk_level,
+        action=action,
+        coercion_label=coercion.label,
+        summary=fusion.summary,
+        explanation=explanations,
+        timestamp=datetime.now(timezone.utc).isoformat()
+    )
+    add_alert(alert_item)
 
     return RiskEvaluationResponse(
         final_risk_score=fusion.final_risk_score,

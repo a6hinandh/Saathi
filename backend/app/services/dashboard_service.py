@@ -4,11 +4,27 @@ from datetime import datetime, timezone
 
 from ..models.schemas import AlertItem, StatsResponse
 
+# Global in-memory alert log database
+ALERTS_LOG: list[AlertItem] = []
+CRITICAL_BLOCKS_COUNT = 6
+WARNINGS_COUNT = 8
+AVERAGE_RISK_SCORE_SUM = 47.6 * 14
+EVALUATION_COUNT = 14
+
+def add_alert(alert: AlertItem):
+    global CRITICAL_BLOCKS_COUNT, WARNINGS_COUNT, AVERAGE_RISK_SCORE_SUM, EVALUATION_COUNT
+    ALERTS_LOG.insert(0, alert)
+    EVALUATION_COUNT += 1
+    AVERAGE_RISK_SCORE_SUM += alert.risk_score
+    if alert.action == 'BLOCK':
+        CRITICAL_BLOCKS_COUNT += 1
+    elif alert.action == 'WARNING':
+        WARNINGS_COUNT += 1
 
 class DashboardService:
     def sample_alerts(self) -> list[AlertItem]:
         timestamp = datetime.now(timezone.utc).isoformat()
-        return [
+        base_samples = [
             AlertItem(
                 customer_id='CUST-10021',
                 session_id='sess_91ad',
@@ -36,14 +52,16 @@ class DashboardService:
                 timestamp=timestamp
             )
         ]
+        return ALERTS_LOG + base_samples
 
     def stats(self) -> StatsResponse:
+        avg_score = round(AVERAGE_RISK_SCORE_SUM / max(1, EVALUATION_COUNT), 1)
         return StatsResponse(
             active_sessions=128,
-            flagged_payments=17,
-            fraud_alerts=9,
-            critical_blocks=6,
-            warning_count=8,
+            flagged_payments=WARNINGS_COUNT + CRITICAL_BLOCKS_COUNT,
+            fraud_alerts=len(ALERTS_LOG),
+            critical_blocks=CRITICAL_BLOCKS_COUNT,
+            warning_count=WARNINGS_COUNT,
             step_up_count=3,
-            average_risk_score=47.6
+            average_risk_score=avg_score
         )

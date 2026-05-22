@@ -39,6 +39,8 @@ class CoercionEngine:
             + hesitation_risk * 0.18,
             2
         )
+        if scam.label == 'SCAM_LIKE' and (anomaly.score >= 0.75 or hesitation.score >= 0.75):
+            score = max(score, 0.80)
         label = 'SCAM_GUIDED' if score >= 0.75 else 'SUSPICIOUS' if score >= 0.45 else 'NORMAL'
         explanation = 'Possible scam-guided payment detected' if label == 'SCAM_GUIDED' else 'Signals do not strongly indicate coercion.'
         return CoercionResult(score=score, label=label, explanation=explanation)

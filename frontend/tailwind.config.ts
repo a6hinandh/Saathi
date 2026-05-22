@@ -6,29 +6,31 @@ const config: Config = {
     extend: {
       colors: {
         bank: {
-          50: '#eaf2ff',
-          100: '#cfe1ff',
-          200: '#a6c8ff',
-          300: '#6ea4ff',
-          400: '#376ff2',
-          500: '#163f9f',
-          600: '#0d2e73',
-          700: '#0a245b',
-          800: '#081d48',
-          900: '#061634'
+          50: '#f0f5fa',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#3b82f6',
+          500: '#1d4ed8',
+          600: '#0B2545',
+          700: '#134074',
+          800: '#1E2A38',
+          900: '#081220',
+          accent: '#F37021', // Saffron
+          gold: '#F4B41A' // Marigold
         },
         fraud: {
-          safe: '#16a34a',
+          safe: '#10b981',
           warn: '#f59e0b',
           step: '#d97706',
-          block: '#dc2626'
+          block: '#ef4444'
         }
       },
       boxShadow: {
-        glow: '0 0 0 1px rgba(84, 125, 255, 0.15), 0 18px 50px rgba(6, 22, 52, 0.28)'
+        glow: '0 0 0 1px rgba(243, 112, 33, 0.15), 0 18px 50px rgba(8, 18, 32, 0.28)'
       },
       backgroundImage: {
-        'bank-gradient': 'linear-gradient(135deg, #061634 0%, #0a245b 55%, #163f9f 100%)'
+        'bank-gradient': 'linear-gradient(135deg, #081220 0%, #0B2545 55%, #134074 100%)'
       }
     }
   },
