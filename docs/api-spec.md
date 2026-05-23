@@ -41,6 +41,9 @@ Response:
 ```json
 {
   "final_risk_score": 91,
+  "request_id": "uuid",
+  "alert_id": "uuid",
+  "timestamp": "2026-05-23T12:00:00+00:00",
   "risk_level": "CRITICAL",
   "action": "BLOCK",
   "summary": "Possible scam-guided payment detected",
@@ -57,6 +60,13 @@ Response:
     "Repeated amount edits",
     "Scam-like note detected",
     "Unknown beneficiary with elevated risk"
+  ],
+  "structured_explanation": [
+    {
+      "factor": "Scam-like note",
+      "evidence": "KYC verification fee",
+      "impact": "HIGH"
+    }
   ]
 }
 ```
@@ -68,3 +78,39 @@ Returns recent fraud alerts, timestamps, severity, action, and explanation.
 ## GET /dashboard/stats
 
 Returns aggregate risk statistics for the fraud operations dashboard.
+
+## POST /demo/run-scenario
+
+Request:
+
+```json
+{
+  "scenario": "SCAM_COERCION_PAYMENT"
+}
+```
+
+Supported scenarios:
+
+```text
+NORMAL_PAYMENT
+SUSPICIOUS_SESSION
+SCAM_COERCION_PAYMENT
+```
+
+The endpoint runs the same pipeline as `POST /risk/evaluate`.
+
+## POST /demo/reset
+
+Clears persisted demo alerts.
+
+## GET /federated/status
+
+Returns simulated federated-learning status. It does not claim production federated learning.
+
+## GET /admin/overview
+
+Returns dashboard stats, newest persisted alerts, model metadata, simulated federated status, and `last_updated`.
+
+## GET /admin/models
+
+Returns runtime model metadata for the behavior anomaly model and scam-note classifier, including whether artifacts loaded or fallback inference is active.

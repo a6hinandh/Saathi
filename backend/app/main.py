@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .api.routes.auth import router as auth_router
 from .api.routes.dashboard import router as dashboard_router
+from .api.routes.demo import router as demo_router
+from .api.routes.federated import router as federated_router
 from .api.routes.fraud import router as fraud_router
 from .api.routes.health import router as health_router
 from .api.routes.risk import router as risk_router
@@ -25,6 +27,8 @@ app.include_router(risk_router)
 app.include_router(fraud_router)
 app.include_router(dashboard_router)
 app.include_router(admin_router)
+app.include_router(demo_router)
+app.include_router(federated_router)
 
 
 @app.get('/')

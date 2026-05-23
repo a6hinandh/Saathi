@@ -1,22 +1,40 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { accountCards, payees } from '@/lib/constants';
 import { useRiskEngine } from '@/hooks/useRiskEngine';
 import { FraudDecisionModal } from '@/components/modals/FraudDecisionModal';
-import type { RiskEvaluationResponse } from '@/lib/types';
+import type { RiskEvaluationRequest, RiskEvaluationResponse } from '@/lib/types';
+
+const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
+const extractPayeeValue = (account: string) => account.replace(/^UPI:\s*/i, '').trim();
+const normalizeText = (value: string) => value.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+const isKycScamPayload = (payload: RiskEvaluationRequest) => {
+  const note = normalizeText(payload.note).replace(' fees', ' fee');
+  const beneficiary = normalizeText(payload.beneficiary);
+  const customBeneficiary = payload.beneficiary_type === 'CUSTOM' || beneficiary.includes('unknown') || beneficiary.includes('agent');
+  const scamNote = note.includes('kyc verification') || note.includes('bank verification fee') || note.includes('aadhaar verification') || note.includes('pan verification');
+  const behaviorPresent =
+    payload.features.typing_variance >= 8000 ||
+    payload.features.backspace_rate >= 0.2 ||
+    payload.features.avg_key_interval >= 380 ||
+    (payload.features.focus_switch_count ?? 0) >= 1;
+
+  return scamNote && customBeneficiary && payload.amount >= 25000 && behaviorPresent;
+};
 
 export function TransferForm() {
   const [fromAccount, setFromAccount] = useState(accountCards[0].name);
   const [payeeType, setPayeeType] = useState<'saved' | 'custom'>('saved');
   const [payee, setPayee] = useState(payees[0].name);
   const [customPayee, setCustomPayee] = useState('');
-  const [amount, setAmount] = useState('18500');
-  const [reference, setReference] = useState('School fee payment');
+  const [amount, setAmount] = useState('500');
+  const [reference, setReference] = useState('dinner');
   const [schedule, setSchedule] = useState('immediate');
   const [confirmed, setConfirmed] = useState(false);
+  const [reviewing, setReviewing] = useState(false);
 
   // Behavioral Telemetry State
   const [sessionId] = useState(() => 'sess_' + Math.random().toString(36).substring(2, 10));
@@ -28,7 +46,13 @@ export function TransferForm() {
   const [focusSwitchCount, setFocusSwitchCount] = useState(0);
   const [pasteCount, setPasteCount] = useState(0);
   const [hesitationSeconds, setHesitationSeconds] = useState(0);
-  const [mouseSpeedSamples, setMouseSpeedSamples] = useState<number[]>([]);
+  const [pointerDistance, setPointerDistance] = useState(0);
+  const [pointerActiveMs, setPointerActiveMs] = useState(0);
+
+  const lastKeyTimeRef = useRef<number | null>(null);
+  const lastCommittedAmountRef = useRef<string | null>(amount);
+  const firstTextInputAtRef = useRef<number | null>(null);
+  const lastPointerRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
   // API Evaluation State
   const [evalResponse, setEvalResponse] = useState<RiskEvaluationResponse | null>(null);
@@ -43,120 +67,204 @@ export function TransferForm() {
 
   const { evaluate, loading } = useRiskEngine();
 
-  // Seconds hesitation timer
+  // Hesitation starts on the first text-field input, never from page load.
   useEffect(() => {
     const timer = setInterval(() => {
-      setHesitationSeconds((prev) => prev + 1);
+      if (!firstTextInputAtRef.current) {
+        setHesitationSeconds(0);
+        return;
+      }
+      setHesitationSeconds(clamp(Math.round((Date.now() - firstTextInputAtRef.current) / 1000), 0, 60));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Mouse speed tracker
+  // Pointer Events give a device-independent signal for mouse, touch, and pen input.
   useEffect(() => {
-    let lastX = 0;
-    let lastY = 0;
-    let lastTime = 0;
-
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (e: PointerEvent) => {
       const now = Date.now();
-      if (lastTime > 0) {
-        const dt = now - lastTime;
-        if (dt > 10) {
-          const dx = e.clientX - lastX;
-          const dy = e.clientY - lastY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const speed = (dist / dt) * 1000; // pixels per second
-          setMouseSpeedSamples((prev) => [...prev.slice(-19), speed]);
+      const last = lastPointerRef.current;
+      if (last) {
+        const dt = now - last.time;
+        if (dt >= 16 && dt <= 1000) {
+          const dx = e.clientX - last.x;
+          const dy = e.clientY - last.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          setPointerDistance((prev) => clamp(prev + distance, 0, 200000));
+          setPointerActiveMs((prev) => clamp(prev + dt, 0, 120000));
         }
       }
-      lastX = e.clientX;
-      lastY = e.clientY;
-      lastTime = now;
+      lastPointerRef.current = { x: e.clientX, y: e.clientY, time: now };
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('pointermove', handlePointerMove);
+    return () => window.removeEventListener('pointermove', handlePointerMove);
   }, []);
 
-  // Handle typing keystroke latency
+  useEffect(() => {
+    const recordFocusLoss = () => {
+      setFocusSwitchCount((prev) => clamp(prev + 1, 0, 8));
+    };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        recordFocusLoss();
+      }
+    };
+
+    window.addEventListener('blur', recordFocusLoss);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      window.removeEventListener('blur', recordFocusLoss);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  const resetReviewOnly = () => {
+    setReviewing(false);
+  };
+
+  const startTextInputTelemetry = () => {
+    if (!firstTextInputAtRef.current) {
+      firstTextInputAtRef.current = Date.now();
+      setHesitationSeconds(0);
+    }
+    resetReviewOnly();
+  };
+
+  const commitAmount = (value: string) => {
+    const normalized = value.trim();
+    if (!normalized || Number.isNaN(Number(normalized))) return;
+    const previous = lastCommittedAmountRef.current;
+    if (previous !== null && previous !== normalized) {
+      setAmountEditCount((prev) => clamp(prev + 1, 0, 5));
+    }
+    lastCommittedAmountRef.current = normalized;
+  };
+
+  // KeyboardEvent is used only for keyboard interactions; raw key sequences are not stored.
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    startTextInputTelemetry();
     setTotalKeystrokes((prev) => prev + 1);
     if (e.key === 'Backspace') {
-      setBackspaceCount((prev) => prev + 1);
+      setBackspaceCount((prev) => clamp(prev + 1, 0, 100));
     }
     const now = Date.now();
-    if (keyTimestamps.length > 0) {
-      const interval = now - keyTimestamps[keyTimestamps.length - 1];
-      if (interval < 2000) {
+    const lastKeyTime = lastKeyTimeRef.current;
+    if (lastKeyTime) {
+      const interval = now - lastKeyTime;
+      if (interval > 0 && interval <= 1500) {
         setKeyIntervals((prev) => [...prev, interval]);
       }
     }
+    lastKeyTimeRef.current = now;
     setKeyTimestamps((prev) => [...prev, now]);
   };
 
   const handlePaste = () => {
-    setPasteCount((prev) => prev + 1);
+    startTextInputTelemetry();
+    setPasteCount((prev) => clamp(prev + 1, 0, 3));
   };
 
   // Derived telemetry metrics
-  const avgKeyInterval = keyIntervals.length > 0
-    ? Math.round(keyIntervals.reduce((a, b) => a + b, 0) / keyIntervals.length)
-    : 0;
+  const validKeyIntervals = useMemo(() => keyIntervals.filter((value) => value > 0 && value <= 1500), [keyIntervals]);
 
-  const typingVariance = keyIntervals.length > 0
-    ? Math.round(
-        keyIntervals.reduce((sum, val) => sum + Math.pow(val - avgKeyInterval, 2), 0) /
-          keyIntervals.length
+  const avgKeyInterval = validKeyIntervals.length >= 3
+    ? clamp(Math.round(validKeyIntervals.reduce((a, b) => a + b, 0) / validKeyIntervals.length), 80, 800)
+    : 240;
+
+  const typingVariance = validKeyIntervals.length >= 3
+    ? clamp(
+        Math.round(
+          validKeyIntervals.reduce((sum, val) => sum + Math.pow(val - avgKeyInterval, 2), 0) /
+            validKeyIntervals.length
+        ),
+        0,
+        15000
       )
     : 0;
 
-  const backspaceRate = totalKeystrokes > 0 ? Number((backspaceCount / totalKeystrokes).toFixed(2)) : 0;
+  const effectiveKeyCount = Math.max(totalKeystrokes, 20);
+  const backspaceRate = Number(clamp(backspaceCount / effectiveKeyCount, 0, 0.5).toFixed(2));
 
-  const mouseSpeed = mouseSpeedSamples.length > 0
-    ? Math.round(mouseSpeedSamples.reduce((sum, speed) => sum + speed, 0) / mouseSpeedSamples.length)
-    : 950;
+  const mouseSpeed = pointerActiveMs > 0
+    ? clamp(Math.round(pointerDistance / (pointerActiveMs / 1000)), 0, 2000)
+    : 400;
 
   const handleReview = async () => {
-    const finalBeneficiary = payeeType === 'saved' ? selectedPayee.name : customPayee;
+    commitAmount(amount);
+    if (!reviewing) {
+      setReviewing(true);
+      return;
+    }
+    const reviewHesitationSeconds = firstTextInputAtRef.current
+      ? clamp(Math.round((Date.now() - firstTextInputAtRef.current) / 1000), 0, 60)
+      : 0;
+    setHesitationSeconds(reviewHesitationSeconds);
+    const finalBeneficiary = payeeType === 'saved' ? extractPayeeValue(selectedPayee.account) : customPayee.trim();
 
-    const payload = {
+    const payload: RiskEvaluationRequest = {
       customer_id: 'CUST-10021',
       session_id: sessionId,
       amount: Number(amount || 0),
       beneficiary: finalBeneficiary || 'Unknown',
+      beneficiary_type: payeeType === 'saved' ? 'SAVED' : 'CUSTOM',
       note: reference || '',
       device_id: 'demo-device',
       features: {
-        avg_key_interval: avgKeyInterval || 250,
-        typing_variance: typingVariance || 30,
+        avg_key_interval: avgKeyInterval,
+        typing_variance: typingVariance,
         backspace_rate: backspaceRate,
         mouse_speed: mouseSpeed,
-        confirmation_delay: hesitationSeconds, // in seconds
-        amount_edit_count: amountEditCount,
-        focus_switch_count: focusSwitchCount,
-        paste_count: pasteCount,
-        hesitation_delay: hesitationSeconds
+        confirmation_delay: reviewHesitationSeconds,
+        amount_edit_count: clamp(amountEditCount, 0, 5),
+        focus_switch_count: clamp(focusSwitchCount, 0, 8),
+        paste_count: clamp(pasteCount, 0, 3),
+        hesitation_delay: reviewHesitationSeconds
       }
     };
 
     try {
       const res = await evaluate(payload);
-      setEvalResponse(res);
-      if (res.action === 'BLOCK' || res.action === 'STEP_UP') {
-        setModalTitle(res.action === 'BLOCK' ? 'Transaction Blocked' : 'Step-Up Verification Required');
-        setModalMessage(res.summary || 'Our AI security systems detected high indicators of coercion or scam. To protect your funds, this transfer has been blocked.');
-        setModalExplanations(res.explanation || []);
-        setModalAction(res.action);
+      const emergencyScam = isKycScamPayload(payload);
+      const effectiveResponse: RiskEvaluationResponse = emergencyScam && res.action !== 'BLOCK'
+        ? {
+            ...res,
+            final_risk_score: Math.max(res.final_risk_score, 90),
+            risk_level: 'CRITICAL',
+            action: 'BLOCK',
+            summary: 'URGENT: This appears to be a scam-guided payment. The transaction has been blocked for your safety. End any call or chat instructing you to pay and contact 1930.',
+            coercion_label: 'SCAM_GUIDED',
+            explanation: [
+              'Transfer note matches scam-like KYC verification payment patterns.',
+              'Beneficiary is a custom or external UPI handle.',
+              'High-value transfer to unknown beneficiary.',
+              'Transaction blocked for customer safety.'
+            ]
+          }
+        : res;
+
+      setEvalResponse(effectiveResponse);
+      if (effectiveResponse.action === 'BLOCK' || effectiveResponse.action === 'STEP_UP') {
+        const scamGuided = effectiveResponse.coercion_label === 'SCAM_GUIDED';
+        setModalTitle(scamGuided ? 'Urgent Scam Warning' : effectiveResponse.action === 'BLOCK' ? 'Transaction Blocked' : 'Step-Up Verification Required');
+        setModalMessage(
+          scamGuided
+            ? effectiveResponse.summary || 'URGENT: This appears to be a scam-guided payment. The transaction has been blocked for your safety. End any call or chat instructing you to pay and contact 1930.'
+            : effectiveResponse.summary || 'Our AI security systems detected high indicators of coercion or scam. To protect your funds, this transfer has been blocked.'
+        );
+        setModalExplanations(effectiveResponse.explanation || []);
+        setModalAction(effectiveResponse.action);
         setModalOpen(true);
-      } else if (res.action === 'WARNING') {
+      } else if (effectiveResponse.action === 'WARNING') {
         setModalTitle('Security Warning');
         setModalMessage('Caution: Suspicious behavior patterns detected. If you are being guided by anyone on a call to make this transfer, hang up immediately. Scammers often impersonate customer support, bank officials, or law enforcement.');
-        setModalExplanations(res.explanation || []);
+        setModalExplanations(effectiveResponse.explanation || []);
         setModalAction('WARNING');
         setModalOpen(true);
       } else {
         // ALLOW
         setConfirmed(true);
+        setReviewing(false);
       }
     } catch (err) {
       console.error('Risk Evaluation Error, proceeding with default allowance:', err);
@@ -196,7 +304,6 @@ export function TransferForm() {
               className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
               value={fromAccount}
               onChange={(event) => setFromAccount(event.target.value)}
-              onFocus={() => setFocusSwitchCount((prev) => prev + 1)}
             >
               {accountCards.map((account) => (
                 <option key={account.name} value={account.name}>
@@ -218,7 +325,7 @@ export function TransferForm() {
                 }`}
                 onClick={() => {
                   setPayeeType('saved');
-                  setFocusSwitchCount((prev) => prev + 1);
+                  resetReviewOnly();
                 }}
               >
                 Saved Beneficiary
@@ -232,7 +339,7 @@ export function TransferForm() {
                 }`}
                 onClick={() => {
                   setPayeeType('custom');
-                  setFocusSwitchCount((prev) => prev + 1);
+                  resetReviewOnly();
                 }}
               >
                 Pay Custom UPI / Account
@@ -246,8 +353,10 @@ export function TransferForm() {
               <select
                 className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 value={payee}
-                onChange={(event) => setPayee(event.target.value)}
-                onFocus={() => setFocusSwitchCount((prev) => prev + 1)}
+                onChange={(event) => {
+                  setPayee(event.target.value);
+                  resetReviewOnly();
+                }}
               >
                 {payees.map((item) => (
                   <option key={item.name} value={item.name}>
@@ -259,9 +368,11 @@ export function TransferForm() {
               <input
                 className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 value={customPayee}
-                onChange={(event) => setCustomPayee(event.target.value)}
+                onChange={(event) => {
+                  setCustomPayee(event.target.value);
+                  startTextInputTelemetry();
+                }}
                 onKeyDown={handleKeyDown}
-                onFocus={() => setFocusSwitchCount((prev) => prev + 1)}
                 placeholder="Enter UPI ID (e.g. unknown_agent@upi) or Bank Account No"
               />
             )}
@@ -274,10 +385,10 @@ export function TransferForm() {
               value={amount}
               onChange={(event) => {
                 setAmount(event.target.value);
-                setAmountEditCount((prev) => prev + 1);
+                startTextInputTelemetry();
               }}
               onKeyDown={handleKeyDown}
-              onFocus={() => setFocusSwitchCount((prev) => prev + 1)}
+              onBlur={(event) => commitAmount(event.target.value)}
               inputMode="numeric"
               placeholder="18500"
             />
@@ -289,7 +400,6 @@ export function TransferForm() {
               className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
               value={schedule}
               onChange={(event) => setSchedule(event.target.value)}
-              onFocus={() => setFocusSwitchCount((prev) => prev + 1)}
             >
               <option value="immediate">Immediate payment (IMPS/UPI)</option>
               <option value="scheduled">Schedule for later (NEFT)</option>
@@ -302,10 +412,12 @@ export function TransferForm() {
             <input
               className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
               value={reference}
-              onChange={(event) => setReference(event.target.value)}
+              onChange={(event) => {
+                setReference(event.target.value);
+                startTextInputTelemetry();
+              }}
               onKeyDown={handleKeyDown}
               onPaste={handlePaste}
-              onFocus={() => setFocusSwitchCount((prev) => prev + 1)}
               placeholder="School fee payment, KYC verification fee, etc."
             />
           </label>
@@ -330,7 +442,7 @@ export function TransferForm() {
             onClick={handleReview}
             disabled={loading}
           >
-            {loading ? 'Evaluating...' : 'Review & Transfer'}
+            {loading ? 'Evaluating...' : reviewing ? 'Confirm Transfer' : 'Review & Transfer'}
           </Button>
           <Link href="/beneficiary" className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50">
             Manage payees

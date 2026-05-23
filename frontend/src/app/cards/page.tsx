@@ -261,7 +261,7 @@ export default function CardsPage() {
               ) : (
                 <div className="mt-4 space-y-4">
                   <p className="text-xs text-slate-600 leading-5">
-                    Saathi's AI engine automatically monitors foreign transaction locations. Inform us in advance to prevent false positives.
+                    Saathi&apos;s AI engine automatically monitors foreign transaction locations. Inform us in advance to prevent false positives.
                   </p>
 
                   <div className="flex flex-col gap-1">

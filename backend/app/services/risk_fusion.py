@@ -25,7 +25,14 @@ class RiskFusionEngine:
             + components.device_risk * 8
         )
         if coercion_label == 'SCAM_GUIDED':
-            score = max(score, 85.0)
+            score = 98.0
+        if (
+            components.behavior_anomaly >= 0.80
+            and components.hesitation_risk >= 0.50
+            and components.scam_note_probability <= 0.35
+            and coercion_label != 'SCAM_GUIDED'
+        ):
+            score = max(score, 65.0)
         final_score = max(0, min(100, int(round(score))))
         if final_score <= 30:
             risk_level, action = 'LOW', 'ALLOW'
@@ -35,5 +42,12 @@ class RiskFusionEngine:
             risk_level, action = 'HIGH', 'STEP_UP'
         else:
             risk_level, action = 'CRITICAL', 'BLOCK'
-        summary = 'Possible scam-guided payment detected' if coercion_label == 'SCAM_GUIDED' or final_score >= 81 else 'Payment risk is manageable'
+
+        if coercion_label == 'SCAM_GUIDED' or final_score > 80:
+            summary = 'CRITICAL: High probability of scam-guided coercion detected'
+        elif final_score > 60:
+            summary = 'Warning: Suspicious patterns suggest potential fraud or coercion'
+        else:
+            summary = 'Payment risk is manageable'
+
         return FusionResult(final_risk_score=final_score, risk_level=risk_level, action=action, summary=summary)

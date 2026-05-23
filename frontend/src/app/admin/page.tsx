@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { AlertTable, DashboardAlertItem } from '@/components/dashboard/AlertTable';
 import { FraudOverviewCards } from '@/components/dashboard/FraudOverviewCards';
@@ -18,7 +18,7 @@ export default function AdminDashboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Fetch overview stats and live threat feed
-  const fetchData = async (isInitial = false) => {
+  const fetchData = useCallback(async (isInitial = false) => {
     try {
       const res = await api.get('/admin/overview');
       setStats(res.data.stats);
@@ -49,16 +49,21 @@ export default function AdminDashboardPage() {
         setLoading(false);
       }
     }
-  };
+  }, [selectedAlert]);
 
   // Poll for live alerts updates every 3 seconds
   useEffect(() => {
-    fetchData(true);
+    const initialLoad = setTimeout(() => {
+      void fetchData(true);
+    }, 0);
     const interval = setInterval(() => {
-      fetchData(false);
+      void fetchData(false);
     }, 3000);
-    return () => clearInterval(interval);
-  }, [selectedAlert?.session_id]);
+    return () => {
+      clearTimeout(initialLoad);
+      clearInterval(interval);
+    };
+  }, [fetchData]);
 
   if (loading) {
     return (
