@@ -15,7 +15,7 @@ export default function SupportPage() {
             <div className="mt-6 space-y-3 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
               <p className="font-semibold text-slate-900">Contact options</p>
               <p>Call center: 1800 123 4444</p>
-              <p>Secure message inbox: support@northfieldbank.example</p>
+              <p>Secure message inbox: support@saathibank.gov.in</p>
               <p>Branch hours: 9:30 AM to 4:30 PM, Monday to Saturday</p>
             </div>
           </section>
