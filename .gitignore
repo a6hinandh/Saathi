@@ -44,4 +44,15 @@ site/
 # Generated assets
 frontend/.next/
 frontend/node_modules/
+frontend/tsconfig.tsbuildinfo
 backend/.venv/
+backend/storage/
+backend/app/ml/artifacts/
+*.joblib
+*.sqlite
+*.db
+logs/
+*.log
+tmp/
+uploads/
+.cache/

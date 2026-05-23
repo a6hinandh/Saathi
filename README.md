@@ -10,6 +10,8 @@ Saathi is a controlled prototype that demonstrates how a behavioral security lay
 - Saathi browser SDK that captures behavioral signals locally and sends feature vectors, not raw sensitive inputs.
 - FastAPI backend with layered services for anomaly detection, scam note classification, hesitation analysis, coercion detection, risk fusion, and policy decisions.
 - Fraud operations dashboard with alerts, scores, explanations, and chart-based monitoring.
+- JSON-backed demo alert persistence under `backend/storage/risk_alerts.json`.
+- Demo scenario endpoints for normal, suspicious, and scam-coercion payment flows.
 - Sample data, scripts, Docker compose, and documentation for hackathon-style demos.
 
 ## Demo flow
@@ -87,10 +89,33 @@ Add final demo screenshots under [docs/screenshots](docs/screenshots) and fronte
 
 - `GET /health`
 - `POST /risk/evaluate`
+- `POST /demo/run-scenario`
+- `POST /demo/reset`
+- `GET /federated/status`
+- `GET /admin/overview`
+- `GET /admin/models`
 - `GET /dashboard/alerts`
 - `GET /dashboard/stats`
 
 Full request and response examples live in [docs/api-spec.md](docs/api-spec.md).
+
+## Backend commands
+
+```bash
+cd backend
+pip install -r requirements.txt
+python -m pytest
+python ../scripts/train-models.py
+uvicorn app.main:app --reload --port 8000
+```
+
+## What is real vs simulated
+
+- Risk evaluation is a working hybrid of lightweight ML artifacts, fallback heuristics, and rules.
+- Saved `.joblib` artifacts are loaded when present; safe fallbacks run if artifacts are missing or unusable.
+- Alerts are persisted to a local JSON file for demo continuity, not a production database.
+- Federated learning status is simulated and explicitly reports that no raw behavioral data is uploaded.
+- Authentication and banking flows are demo-only mocks.
 
 ## Notes
 

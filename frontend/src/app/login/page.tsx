@@ -1,30 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { bankName, loginBenefits } from '@/lib/constants';
 
 export default function LoginPage() {
   const router = useRouter();
+  const createKeyboardKeys = () => 'abcdefghijklmnopqrstuvwxyz0123456789@#$!'.split('').sort(() => 0.5 - Math.random());
   const [customerId, setCustomerId] = useState('10021487');
   const [password, setPassword] = useState('SaathiBank@123');
   const [otp, setOtp] = useState('482911');
   const [showKeyboard, setShowKeyboard] = useState(false);
-  const [keyboardKeys, setKeyboardKeys] = useState<string[]>([]);
+  const [keyboardKeys, setKeyboardKeys] = useState<string[]>(createKeyboardKeys);
   const [activeInput, setActiveInput] = useState<'password' | 'otp' | null>(null);
 
   // Initialize and randomize keys for virtual keyboard
   const initializeKeyboard = () => {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789@#$!'.split('');
-    // Shuffle helper
-    const shuffled = chars.sort(() => 0.5 - Math.random());
-    setKeyboardKeys(shuffled);
+    setKeyboardKeys(createKeyboardKeys());
   };
-
-  useEffect(() => {
-    initializeKeyboard();
-  }, []);
 
   const handleKeyPress = (char: string) => {
     if (activeInput === 'password') {

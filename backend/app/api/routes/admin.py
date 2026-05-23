@@ -1,43 +1,33 @@
+from datetime import datetime, timezone
+
 from fastapi import APIRouter, Depends
-from pathlib import Path
-from datetime import datetime
 
 from ..dependencies import get_dashboard_service
+from .federated import federated_status_payload
+from ...services.anomaly_detection import BehavioralAnomalyDetector
 from ...services.dashboard_service import DashboardService
-
-ARTIFACT_DIR = Path(__file__).resolve().parents[2] / 'ml' / 'artifacts'
+from ...services.scam_classifier import ScamNoteClassifier
 
 router = APIRouter(prefix='/admin', tags=['admin'])
 
 
-def _list_artifacts():
-    items = []
-    if not ARTIFACT_DIR.exists():
-        return items
-    for p in sorted(ARTIFACT_DIR.iterdir()):
-        try:
-            stat = p.stat()
-            items.append({
-                'name': p.name,
-                'path': str(p.relative_to(Path.cwd())),
-                'size': stat.st_size,
-                'modified': datetime.fromtimestamp(stat.st_mtime).isoformat()
-            })
-        except Exception:
-            items.append({'name': p.name, 'error': 'stat failed'})
-    return items
+def model_metadata() -> dict:
+    return {
+        'behavior_model': BehavioralAnomalyDetector().metadata(),
+        'scam_classifier': ScamNoteClassifier().metadata()
+    }
 
 
 @router.get('/overview')
 def overview(service: DashboardService = Depends(get_dashboard_service)) -> dict:
     stats = service.stats().model_dump()
-    alerts = [a.model_dump() for a in service.sample_alerts()]
-    artifacts = _list_artifacts()
+    alerts = service.recent_alert_dicts(limit=10)
     return {
         'stats': stats,
-        'alerts_count': len(alerts),
-        'recent_alerts': alerts[:10],
-        'artifacts': artifacts
+        'recent_alerts': alerts,
+        'models': model_metadata(),
+        'federated_status': federated_status_payload(),
+        'last_updated': datetime.now(timezone.utc).isoformat()
     }
 
 
@@ -47,5 +37,5 @@ def admin_alerts(service: DashboardService = Depends(get_dashboard_service)) -> 
 
 
 @router.get('/models')
-def models() -> list[dict]:
-    return _list_artifacts()
+def models() -> dict:
+    return model_metadata()

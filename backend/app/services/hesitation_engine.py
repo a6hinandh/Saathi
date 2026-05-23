@@ -15,7 +15,7 @@ class HesitationResult:
 class HesitationEngine:
     def evaluate(self, features: BehaviorFeatures) -> HesitationResult:
         raw = (
-            min(1.0, features.confirmation_delay / 30.0) * 0.4
+            min(1.0, features.confirmation_delay / 25.0) * 0.4
             + min(1.0, features.amount_edit_count / 5.0) * 0.35
             + min(1.0, features.focus_switch_count / 8.0) * 0.25
         )
