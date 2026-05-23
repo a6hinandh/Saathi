@@ -178,6 +178,7 @@ def evaluate_risk(
         fusion = risk_fusion_engine.fuse(components, coercion.label)
         policy_gate = 'WEIGHTED_FUSION'
         scam_note = scam.probability >= 0.65 or contains_scam_keyword(request.note)
+        benign_note_context = scam.label != 'SCAM_LIKE' and not contains_scam_keyword(request.note)
         saved_beneficiary = _known_or_saved_beneficiary(request)
         custom_or_unknown = _custom_or_unknown_beneficiary(request)
         behavior_high = _behavior_high(request, anomaly.score)
@@ -199,7 +200,7 @@ def evaluate_risk(
             fusion.summary = 'URGENT: This appears to be a scam-guided payment. The transaction has been blocked for your safety. End any call or chat instructing you to pay and contact 1930.'
         elif (
             saved_beneficiary
-            and scam.probability < 0.4
+            and benign_note_context
             and behavior_high
             and request.amount >= 5000
         ):

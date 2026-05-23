@@ -1,6 +1,8 @@
 from fastapi.testclient import TestClient
+from pathlib import Path
 
 from app.main import app
+from app.api import dependencies
 from app.services import anomaly_detection, scam_classifier
 from app.services.anomaly_detection import BehavioralAnomalyDetector
 from app.services.scam_classifier import ScamNoteClassifier
@@ -106,6 +108,24 @@ def test_suspicious_session_step_up():
     assert not any('SCAM_GUIDED' in item for item in body['explanation'])
     assert not any('external UPI handle' in item for item in body['explanation'])
     assert body['metadata']['policy_gate'] == 'SUSPICIOUS_BEHAVIOR_STEP_UP'
+
+
+def test_suspicious_session_step_up_without_artifacts(monkeypatch):
+    monkeypatch.setattr(anomaly_detection, 'ARTIFACT_PATH', Path('missing_behavior.joblib'))
+    monkeypatch.setattr(scam_classifier, 'ARTIFACT_PATH', Path('missing_scam.joblib'))
+    app.dependency_overrides[dependencies.get_anomaly_detector] = lambda: BehavioralAnomalyDetector()
+    app.dependency_overrides[dependencies.get_scam_classifier] = lambda: ScamNoteClassifier()
+    try:
+        reset_demo_logs()
+        response = client.post('/risk/evaluate', json=SUSPICIOUS_SESSION_PAYLOAD)
+        assert response.status_code == 200
+        body = response.json()
+        assert body['risk_level'] == 'HIGH'
+        assert body['action'] == 'STEP_UP'
+        assert body['metadata']['policy_gate'] == 'SUSPICIOUS_BEHAVIOR_STEP_UP'
+    finally:
+        app.dependency_overrides.pop(dependencies.get_anomaly_detector, None)
+        app.dependency_overrides.pop(dependencies.get_scam_classifier, None)
 
 
 def test_scam_coercion_blocks():
