@@ -14,6 +14,10 @@ from ...services.scam_classifier import ScamNoteClassifier, contains_scam_keywor
 from ...services.transaction_risk import TransactionRiskService
 from ...services.device_risk import DeviceRiskService
 from ...utils.logger import get_logger
+from ...services.shap_service import ShapExplainer
+
+shap_explainer = ShapExplainer()
+
 from ..dependencies import (
     get_anomaly_detector,
     get_coercion_engine,
@@ -256,7 +260,8 @@ def evaluate_risk(
                 'scam_classifier': scam_classifier.metadata()
             },
             'policy_gate': policy_gate,
-            'raw_sensitive_data_logged': False
+            'raw_sensitive_data_logged': False,
+            'shap_explanation': shap_explainer.full_explanation(components, request.features, fusion.final_risk_score)
         }
     except Exception as exc:
         logger.exception('Risk evaluation failed; using safe fallback: %s', exc)
