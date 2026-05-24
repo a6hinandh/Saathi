@@ -16,7 +16,7 @@ const ringClasses = {
 export function FraudTimeline({ events }: FraudTimelineProps) {
   return (
     <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-semibold">Decision timeline</h2>
+      <h2 className="text-xl font-semibold text-[#0B2545]">Decision timeline</h2>
       <div className="mt-6 space-y-4">
         {events.map((event) => (
           <div key={`${event.title}-${event.time}`} className="flex gap-4">

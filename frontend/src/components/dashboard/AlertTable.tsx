@@ -10,6 +10,8 @@ export interface DashboardAlertItem {
   summary: string;
   explanation: string[];
   timestamp: string;
+  metadata?: Record<string, any>;
+  components?: Record<string, number>;
 }
 
 interface AlertTableProps {
