@@ -174,8 +174,4 @@ uvicorn app.main:app --reload --port 8000
 
 This repository is intentionally designed as a realistic proof-of-concept for a security review or hackathon pitch. It should be integrated into an existing banking portal rather than used as a standalone retail banking application.
 
-## 📄 Licensing
 
-This project is licensed under the **PolyForm Noncommercial License 1.0.0**. 
-
-The license permits free use, modification, and distribution of the software for personal study, academic research, and noncommercial purposes. Commercial exploitation, proprietary deployment, or use within for-profit corporate entities is strictly prohibited. See the [LICENSE](LICENSE) file for complete legal terms.
