@@ -151,7 +151,8 @@ export function TransferForm() {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] animate-fadeIn">
+    <>
+      <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] animate-fadeIn">
       {/* Input panel */}
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xs space-y-6">
         <div>
@@ -474,9 +475,10 @@ export function TransferForm() {
           )}
         </div>
       </aside>
+    </div>
 
-      {/* Fraud Response / Safety Intercept Modal */}
-      <FraudDecisionModal
+    {/* Fraud Response / Safety Intercept Modal */}
+    <FraudDecisionModal
         open={modalOpen}
         title={modalTitle}
         message={modalMessage}
@@ -485,6 +487,6 @@ export function TransferForm() {
         onClose={handleCloseModal}
         onProceed={handleProceedAfterWarning}
       />
-    </div>
+    </>
   );
 }
