@@ -1,6 +1,6 @@
 # Demo Script
 
-1. Open Innovate Bank and sign in.
+1. Open Saathi Bank of India and sign in.
 2. Show the dashboard balances and recent activity.
 3. Start a transfer for ₹25,000 to unknown_agent@upi.
 4. Enter the note "KYC verification fee".

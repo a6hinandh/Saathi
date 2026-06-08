@@ -10,7 +10,12 @@ export default function HomePage() {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 font-medium">
               <span className="w-4 h-2.5 bg-[#FF9933] inline-block rounded-xs"></span>
-              <span className="w-4 h-2.5 bg-white inline-block rounded-xs flex items-center justify-center text-[4px] text-blue-900 font-bold">☀️</span>
+              <span className="w-4 h-2.5 bg-white inline-block rounded-xs flex items-center justify-center">
+                <svg className="w-1.5 h-1.5 text-blue-900" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2">
+                  <circle cx="5" cy="5" r="3" />
+                  <path d="M5 2v6M2 5h6M2.87 2.87l4.26 4.26M2.87 7.13l4.26-4.26" />
+                </svg>
+              </span>
               <span className="w-4 h-2.5 bg-[#128807] inline-block rounded-xs"></span>
               Govt. of India Undertaking
             </span>
@@ -18,7 +23,10 @@ export default function HomePage() {
             <span className="text-white/75">Toll Free: 1800-11-2211 / 1800-425-3800</span>
             <span className="text-white/40">|</span>
             <span className="text-amber-400 font-semibold flex items-center gap-1">
-              ⚠️ Cyber Fraud Helpline: 1930
+              <svg className="w-3.5 h-3.5 text-amber-400 inline-block align-text-bottom mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              Cyber Fraud Helpline: 1930
             </span>
           </div>
           <div className="flex items-center gap-3">
@@ -41,13 +49,43 @@ export default function HomePage() {
           </div>
           <div className="w-full pl-32 overflow-hidden flex">
             <div className="animate-marquee inline-flex gap-16 text-xs font-medium text-[#7c3008]">
-              <span>🛡️ Security Alert: Saathi Bank never asks for your OTP, UPI PIN, CVV, Password, or Aadhaar details. Do not share them with anyone.</span>
-              <span>🔒 Safeguard Your Account: Beware of scam calls or SMS requesting KYC verification or PAN updates. Report immediately at 1930.</span>
-              <span>📱 Safe Banking: Verify the sender ID for bank SMS alerts. Check transaction logs regularly via the Internet Banking dashboard.</span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-emerald-600 inline-block align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Security Alert: Saathi Bank never asks for your OTP, UPI PIN, CVV, Password, or Aadhaar details. Do not share them with anyone.
+              </span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-blue-600 inline-block align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                Safeguard Your Account: Beware of scam calls or SMS requesting KYC verification or PAN updates. Report immediately at 1930.
+              </span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-cyan-600 inline-block align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                Safe Banking: Verify the sender ID for bank SMS alerts. Check transaction logs regularly via the Internet Banking dashboard.
+              </span>
               {/* Duplicate for infinite effect */}
-              <span>🛡️ Security Alert: Saathi Bank never asks for your OTP, UPI PIN, CVV, Password, or Aadhaar details. Do not share them with anyone.</span>
-              <span>🔒 Safeguard Your Account: Beware of scam calls or SMS requesting KYC verification or PAN updates. Report immediately at 1930.</span>
-              <span>📱 Safe Banking: Verify the sender ID for bank SMS alerts. Check transaction logs regularly via the Internet Banking dashboard.</span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-emerald-600 inline-block align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Security Alert: Saathi Bank never asks for your OTP, UPI PIN, CVV, Password, or Aadhaar details. Do not share them with anyone.
+              </span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-blue-600 inline-block align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                Safeguard Your Account: Beware of scam calls or SMS requesting KYC verification or PAN updates. Report immediately at 1930.
+              </span>
+              <span className="flex items-center gap-1">
+                <svg className="w-3.5 h-3.5 text-cyan-600 inline-block align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                Safe Banking: Verify the sender ID for bank SMS alerts. Check transaction logs regularly via the Internet Banking dashboard.
+              </span>
             </div>
           </div>
         </div>
@@ -56,11 +94,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
         <header className="flex flex-wrap items-center justify-between gap-4 rounded-[2rem] border border-slate-200 bg-white/80 px-6 py-4 shadow-[0_20px_50px_rgba(11,37,69,0.04)] backdrop-blur">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0B2545] text-white shadow-md">
-              <svg className="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-              </svg>
-            </div>
+            <img src="/logo.png" alt="Saathi Logo" className="h-11 w-11 object-contain rounded-xl shadow-md bg-white p-1" />
             <div>
               <p className="text-xs uppercase tracking-[0.25em] font-semibold text-[#0B2545]">{bankName}</p>
               <p className="text-[0.72rem] text-slate-500 font-medium">Safe & Secure Retail Internet Banking Portal</p>
@@ -78,8 +112,8 @@ export default function HomePage() {
 
         <div className="grid gap-8 py-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:py-14">
           <div className="space-y-8">
-            <div className="inline-flex rounded-full border border-[#F37021]/30 bg-[#F37021]/6 px-4.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#F37021]">
-              🇮🇳 Azadi Ka Amrit Mahotsav - Digital India Campaign
+            <div className="inline-flex rounded-full border border-[#F37021]/30 bg-[#F37021]/6 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#F37021]">
+              Azadi Ka Amrit Mahotsav - Digital India Campaign
             </div>
             <div className="max-w-3xl space-y-5">
               <h1 className="text-4xl font-bold leading-tight text-[#0B2545] md:text-6xl tracking-tight">
@@ -94,7 +128,7 @@ export default function HomePage() {
               <Link href="/login" className="rounded-full bg-[#0B2545] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#134074] shadow-md shadow-[#0B2545]/25">
                 Sign in to NetBanking
               </Link>
-              <Link href="/support" className="rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50">
+              <Link href="/contact-care" className="rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50">
                 Contact Care Centre
               </Link>
             </div>
@@ -129,7 +163,9 @@ export default function HomePage() {
                 'RuPay Card Controls'
               ].map((item) => (
                 <div key={item} className="rounded-2xl border border-white/8 bg-white/5 px-4 py-3.5 text-sm text-white/85 flex items-center gap-2">
-                  <span className="text-[#F37021] text-lg">✦</span>
+                  <svg className="w-4 h-4 text-[#F37021] shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a1 1 0 011 1v7a1 1 0 001 1h7a1 1 0 010 2h-7a1 1 0 00-1 1v7a1 1 0 01-2 0v-7a1 1 0 00-1-1H3a1 1 0 010-2h7a1 1 0 001-1V3a1 1 0 011-1z" />
+                  </svg>
                   {item}
                 </div>
               ))}
@@ -147,7 +183,7 @@ export default function HomePage() {
 
         <section className="grid gap-5 pb-10 md:grid-cols-2 xl:grid-cols-4">
           {featureCards.map((card) => (
-            <article key={card.title} className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-6.5 shadow-[0_14px_30px_rgba(11,37,69,0.03)] backdrop-blur transition hover:shadow-md hover:-translate-y-0.5 duration-200">
+            <article key={card.title} className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-6 shadow-[0_14px_30px_rgba(11,37,69,0.03)] backdrop-blur transition hover:shadow-md hover:-translate-y-0.5 duration-200">
               <h2 className="text-xl font-bold text-[#0B2545]">{card.title}</h2>
               <p className="mt-3 text-sm leading-6 text-slate-600">{card.description}</p>
             </article>

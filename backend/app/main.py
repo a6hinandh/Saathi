@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,8 +9,17 @@ from .api.routes.health import router as health_router
 from .api.routes.risk import router as risk_router
 from .api.routes.admin import router as admin_router
 from .config import settings
+from .database import initialize_database
 
-app = FastAPI(title='Saathi Risk Engine', version='1.0.0')
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Auto-initialize database schema on startup
+    initialize_database()
+    yield
+
+
+app = FastAPI(title='Saathi Risk Engine', version='1.0.0', lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

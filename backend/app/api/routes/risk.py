@@ -1,5 +1,8 @@
 from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
+from ...database import get_db
+from ...models.database_models import Alert
 from ...models.schemas import RiskEvaluationRequest, RiskEvaluationResponse, RiskComponents
 from ...services.anomaly_detection import BehavioralAnomalyDetector
 from ...services.coercion_engine import CoercionEngine
@@ -36,7 +39,8 @@ def evaluate_risk(
     device_risk_service: DeviceRiskService = Depends(get_device_risk_service),
     risk_fusion_engine: RiskFusionEngine = Depends(get_risk_fusion_engine),
     explanation_engine: ExplanationEngine = Depends(get_explanation_engine),
-    policy_engine: PolicyEngine = Depends(get_policy_engine)
+    policy_engine: PolicyEngine = Depends(get_policy_engine),
+    db: Session = Depends(get_db)
 ) -> RiskEvaluationResponse:
     # Resolve FastAPI Depends objects if called directly in tests
     if type(anomaly_detector).__name__ == 'Depends' or hasattr(anomaly_detector, 'dependency'):
@@ -57,6 +61,8 @@ def evaluate_risk(
         explanation_engine = get_explanation_engine()
     if type(policy_engine).__name__ == 'Depends' or hasattr(policy_engine, 'dependency'):
         policy_engine = get_policy_engine()
+    if type(db).__name__ == 'Depends' or hasattr(db, 'dependency') or db is None:
+        db = next(get_db())
 
     anomaly = anomaly_detector.evaluate(request.features)
     scam = scam_classifier.predict(request.note)
@@ -79,10 +85,8 @@ def evaluate_risk(
     explanations = explanation_engine.build(request.note, request.beneficiary, components, coercion.label)
 
     from datetime import datetime, timezone
-    from ...models.schemas import AlertItem
-    from ...services.dashboard_service import add_alert
 
-    alert_item = AlertItem(
+    db_alert = Alert(
         customer_id=request.customer_id,
         session_id=request.session_id,
         beneficiary=request.beneficiary,
@@ -92,10 +96,12 @@ def evaluate_risk(
         action=action,
         coercion_label=coercion.label,
         summary=fusion.summary,
-        explanation=explanations,
         timestamp=datetime.now(timezone.utc).isoformat()
     )
-    add_alert(alert_item)
+    db_alert.explanation = explanations
+    db.add(db_alert)
+    db.commit()
+    db.refresh(db_alert)
 
     return RiskEvaluationResponse(
         final_risk_score=fusion.final_risk_score,

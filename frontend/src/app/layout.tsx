@@ -3,8 +3,11 @@ import type { ReactNode } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Northfield Bank | Internet Banking',
-  description: 'Secure online banking for accounts, payments, cards, statements, and support.'
+  title: 'Saathi Bank of India | Internet Banking',
+  description: 'Secure online banking for accounts, payments, cards, statements, and support.',
+  icons: {
+    icon: '/logo.png',
+  }
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

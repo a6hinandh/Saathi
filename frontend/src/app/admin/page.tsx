@@ -75,7 +75,9 @@ export default function AdminDashboardPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060D1A] text-red-400 font-mono p-6">
         <div className="max-w-md text-center space-y-4 border border-red-500/20 p-8 rounded-3xl bg-red-950/10">
-          <p className="text-4xl">⚠️</p>
+          <svg className="w-10 h-10 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
           <h2 className="text-xl font-bold uppercase tracking-wider">Connection Failure</h2>
           <p className="text-xs text-slate-400 leading-5">{error}</p>
           <button
@@ -225,7 +227,13 @@ export default function AdminDashboardPage() {
       <header className="flex flex-wrap items-center justify-between border-b border-slate-800 pb-5 gap-4">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F37021] text-white shadow-lg shadow-[#F37021]/20 font-bold text-lg">
-            S⚙️
+            <div className="flex items-center gap-0.5">
+              <span>S</span>
+              <svg className="w-4 h-4 text-white animate-spin-slow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -271,7 +279,12 @@ export default function AdminDashboardPage() {
             <div className="rounded-[2rem] border border-cyan-500/20 bg-slate-950 p-6 text-[#00ffcc] font-mono shadow-2xl relative overflow-hidden">
               <div className="absolute inset-0 bg-scanline pointer-events-none opacity-[0.03]"></div>
               <div className="flex items-center justify-between border-b border-cyan-500/10 pb-3">
-                <span className="text-xs uppercase tracking-widest text-cyan-400 font-bold">🔍 Session Telemetry Inspector</span>
+                <span className="text-xs uppercase tracking-widest text-cyan-400 font-bold flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  Session Telemetry Inspector
+                </span>
                 <span className="text-[9px] text-cyan-500/60 uppercase">Console Log V1.0.8</span>
               </div>
               <div className="mt-4 space-y-2 text-xs">

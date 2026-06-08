@@ -1,14 +1,3602 @@
 [
   {
-    "case_id": "FR-001",
-    "note": "KYC verification fee",
-    "beneficiary": "unknown_agent@upi",
+    "case_id": "BEN-000",
+    "note": "Home repair charges",
+    "beneficiary": "pooja_59@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-001",
+    "note": "School fees for Riya",
+    "beneficiary": "riya_39@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-002",
+    "note": "Rent payment for March",
+    "beneficiary": "karan_20@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-003",
+    "note": "School fees for Pooja",
+    "beneficiary": "aarav_84@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-004",
+    "note": "Books and study material",
+    "beneficiary": "karan_37@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-005",
+    "note": "Car service",
+    "beneficiary": "priya_75@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-006",
+    "note": "Rent payment for June",
+    "beneficiary": "aarav_66@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-007",
+    "note": "Car service",
+    "beneficiary": "neha_61@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-008",
+    "note": "Monthly savings",
+    "beneficiary": "sneha_25@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-009",
+    "note": "Groceries refund",
+    "beneficiary": "priya_82@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-010",
+    "note": "Car service",
+    "beneficiary": "priya_86@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-011",
+    "note": "Groceries refund",
+    "beneficiary": "amit_35@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-012",
+    "note": "Office expense",
+    "beneficiary": "sneha_53@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-013",
+    "note": "Home repair charges",
+    "beneficiary": "riya_15@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-014",
+    "note": "Gym membership fee",
+    "beneficiary": "ananya_75@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-015",
+    "note": "School fees for Ananya",
+    "beneficiary": "rahul_15@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-016",
+    "note": "Gym membership fee",
+    "beneficiary": "rahul_70@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-017",
+    "note": "Books and study material",
+    "beneficiary": "karan_97@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-018",
+    "note": "School fees for Amit",
+    "beneficiary": "rahul_71@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-019",
+    "note": "Dinner reimbursement",
+    "beneficiary": "pooja_77@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-020",
+    "note": "Subscription renewal",
+    "beneficiary": "neha_32@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-021",
+    "note": "Home repair charges",
+    "beneficiary": "aarav_20@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-022",
+    "note": "Car service",
+    "beneficiary": "ananya_50@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-023",
+    "note": "Monthly savings",
+    "beneficiary": "sneha_91@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-024",
+    "note": "Subscription renewal",
+    "beneficiary": "sneha_51@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-025",
+    "note": "Subscription renewal",
+    "beneficiary": "riya_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-026",
+    "note": "Gift for Ananya",
+    "beneficiary": "neha_85@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-027",
+    "note": "Transfer to family",
+    "beneficiary": "sneha_54@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-028",
+    "note": "School fees for Rahul",
+    "beneficiary": "rahul_29@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-029",
+    "note": "Rent payment for November",
+    "beneficiary": "karan_36@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-030",
+    "note": "Transfer to family",
+    "beneficiary": "riya_44@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-031",
+    "note": "Car service",
+    "beneficiary": "riya_29@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-032",
+    "note": "Electricity bill",
+    "beneficiary": "rahul_32@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-033",
+    "note": "Gym membership fee",
+    "beneficiary": "pooja_13@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-034",
+    "note": "Car service",
+    "beneficiary": "rahul_84@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-035",
+    "note": "Gym membership fee",
+    "beneficiary": "priya_46@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-036",
+    "note": "Dinner reimbursement",
+    "beneficiary": "pooja_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-037",
+    "note": "Rent payment for December",
+    "beneficiary": "amit_58@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-038",
+    "note": "Home repair charges",
+    "beneficiary": "ananya_90@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-039",
+    "note": "Home repair charges",
+    "beneficiary": "raj_24@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-040",
+    "note": "Groceries refund",
+    "beneficiary": "rahul_69@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-041",
+    "note": "Gift for Riya",
+    "beneficiary": "karan_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-042",
+    "note": "Books and study material",
+    "beneficiary": "raj_58@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-043",
+    "note": "Electricity bill",
+    "beneficiary": "raj_25@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-044",
+    "note": "Rent payment for May",
+    "beneficiary": "aarav_84@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-045",
+    "note": "School fees for Ananya",
+    "beneficiary": "priya_59@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-046",
+    "note": "Gym membership fee",
+    "beneficiary": "karan_39@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-047",
+    "note": "Lunch with Karan",
+    "beneficiary": "priya_81@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-048",
+    "note": "Transfer to family",
+    "beneficiary": "ananya_33@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-049",
+    "note": "Books and study material",
+    "beneficiary": "riya_59@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-050",
+    "note": "Transfer to family",
+    "beneficiary": "pooja_25@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-051",
+    "note": "Groceries refund",
+    "beneficiary": "rahul_74@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-052",
+    "note": "Transfer to family",
+    "beneficiary": "rahul_47@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-053",
+    "note": "Home repair charges",
+    "beneficiary": "priya_97@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-054",
+    "note": "Lunch with Sneha",
+    "beneficiary": "karan_82@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-055",
+    "note": "Car service",
+    "beneficiary": "raj_48@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-056",
+    "note": "Office expense",
+    "beneficiary": "priya_18@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-057",
+    "note": "Rent payment for September",
+    "beneficiary": "priya_46@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-058",
+    "note": "School fees for Aarav",
+    "beneficiary": "riya_99@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-059",
+    "note": "Lunch with Neha",
+    "beneficiary": "ananya_99@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-060",
+    "note": "Monthly savings",
+    "beneficiary": "raj_10@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-061",
+    "note": "Subscription renewal",
+    "beneficiary": "neha_34@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-062",
+    "note": "School fees for Amit",
+    "beneficiary": "raj_19@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-063",
+    "note": "Gift for Priya",
+    "beneficiary": "pooja_96@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-064",
+    "note": "Home repair charges",
+    "beneficiary": "raj_10@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-065",
+    "note": "Gym membership fee",
+    "beneficiary": "pooja_17@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-066",
+    "note": "Monthly savings",
+    "beneficiary": "aarav_64@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-067",
+    "note": "Gym membership fee",
+    "beneficiary": "raj_25@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-068",
+    "note": "Books and study material",
+    "beneficiary": "sneha_52@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-069",
+    "note": "Electricity bill",
+    "beneficiary": "neha_89@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-070",
+    "note": "Groceries refund",
+    "beneficiary": "rahul_25@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-071",
+    "note": "Monthly savings",
+    "beneficiary": "ananya_58@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-072",
+    "note": "Electricity bill",
+    "beneficiary": "neha_39@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-073",
+    "note": "Home repair charges",
+    "beneficiary": "neha_53@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-074",
+    "note": "Gift for Aarav",
+    "beneficiary": "priya_46@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-075",
+    "note": "Groceries refund",
+    "beneficiary": "riya_60@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-076",
+    "note": "Rent payment for January",
+    "beneficiary": "neha_47@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-077",
+    "note": "School fees for Riya",
+    "beneficiary": "raj_91@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-078",
+    "note": "Electricity bill",
+    "beneficiary": "rahul_75@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-079",
+    "note": "Home repair charges",
+    "beneficiary": "pooja_92@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-080",
+    "note": "Home repair charges",
+    "beneficiary": "aarav_84@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-081",
+    "note": "Monthly savings",
+    "beneficiary": "amit_22@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-082",
+    "note": "Gift for Riya",
+    "beneficiary": "sneha_32@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-083",
+    "note": "Car service",
+    "beneficiary": "riya_85@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-084",
+    "note": "Office expense",
+    "beneficiary": "raj_35@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-085",
+    "note": "Lunch with Sneha",
+    "beneficiary": "ananya_63@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-086",
+    "note": "Electricity bill",
+    "beneficiary": "aarav_47@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-087",
+    "note": "Rent payment for October",
+    "beneficiary": "pooja_55@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-088",
+    "note": "School fees for Riya",
+    "beneficiary": "vikram_42@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-089",
+    "note": "Office expense",
+    "beneficiary": "sneha_64@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-090",
+    "note": "School fees for Karan",
+    "beneficiary": "amit_96@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-091",
+    "note": "School fees for Ananya",
+    "beneficiary": "ananya_40@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-092",
+    "note": "Lunch with Karan",
+    "beneficiary": "raj_96@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-093",
+    "note": "Gym membership fee",
+    "beneficiary": "rahul_26@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-094",
+    "note": "Books and study material",
+    "beneficiary": "ananya_78@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-095",
+    "note": "Lunch with Neha",
+    "beneficiary": "neha_85@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-096",
+    "note": "Lunch with Ananya",
+    "beneficiary": "karan_48@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-097",
+    "note": "Dinner reimbursement",
+    "beneficiary": "raj_47@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-098",
+    "note": "Gift for Priya",
+    "beneficiary": "pooja_78@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-099",
+    "note": "Office expense",
+    "beneficiary": "rahul_64@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-100",
+    "note": "Monthly savings",
+    "beneficiary": "karan_14@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-101",
+    "note": "Home repair charges",
+    "beneficiary": "rahul_65@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-102",
+    "note": "Subscription renewal",
+    "beneficiary": "aarav_52@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-103",
+    "note": "Monthly savings",
+    "beneficiary": "aarav_35@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-104",
+    "note": "Lunch with Pooja",
+    "beneficiary": "rahul_85@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-105",
+    "note": "Rent payment for May",
+    "beneficiary": "priya_67@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-106",
+    "note": "Dinner reimbursement",
+    "beneficiary": "pooja_42@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-107",
+    "note": "Subscription renewal",
+    "beneficiary": "vikram_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-108",
+    "note": "Rent payment for December",
+    "beneficiary": "amit_78@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-109",
+    "note": "Gym membership fee",
+    "beneficiary": "raj_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-110",
+    "note": "Groceries refund",
+    "beneficiary": "neha_35@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-111",
+    "note": "Home repair charges",
+    "beneficiary": "riya_21@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-112",
+    "note": "Home repair charges",
+    "beneficiary": "karan_82@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-113",
+    "note": "Subscription renewal",
+    "beneficiary": "karan_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-114",
+    "note": "Electricity bill",
+    "beneficiary": "sneha_72@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-115",
+    "note": "Monthly savings",
+    "beneficiary": "neha_84@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-116",
+    "note": "Groceries refund",
+    "beneficiary": "priya_24@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-117",
+    "note": "Subscription renewal",
+    "beneficiary": "amit_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-118",
+    "note": "Rent payment for October",
+    "beneficiary": "amit_48@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-119",
+    "note": "Monthly savings",
+    "beneficiary": "raj_64@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-120",
+    "note": "Electricity bill",
+    "beneficiary": "karan_42@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-121",
+    "note": "Books and study material",
+    "beneficiary": "riya_83@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-122",
+    "note": "Electricity bill",
+    "beneficiary": "riya_71@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-123",
+    "note": "Dinner reimbursement",
+    "beneficiary": "ananya_90@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-124",
+    "note": "Groceries refund",
+    "beneficiary": "amit_55@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-125",
+    "note": "Gift for Sneha",
+    "beneficiary": "amit_95@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-126",
+    "note": "Subscription renewal",
+    "beneficiary": "riya_91@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-127",
+    "note": "Monthly savings",
+    "beneficiary": "karan_57@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-128",
+    "note": "Electricity bill",
+    "beneficiary": "sneha_97@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-129",
+    "note": "Gym membership fee",
+    "beneficiary": "raj_18@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-130",
+    "note": "Gym membership fee",
+    "beneficiary": "aarav_71@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-131",
+    "note": "Dinner reimbursement",
+    "beneficiary": "amit_72@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-132",
+    "note": "Transfer to family",
+    "beneficiary": "karan_70@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-133",
+    "note": "School fees for Aarav",
+    "beneficiary": "aarav_67@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-134",
+    "note": "Dinner reimbursement",
+    "beneficiary": "pooja_63@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-135",
+    "note": "Car service",
+    "beneficiary": "neha_67@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-136",
+    "note": "Home repair charges",
+    "beneficiary": "karan_36@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-137",
+    "note": "Lunch with Neha",
+    "beneficiary": "karan_82@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-138",
+    "note": "Gift for Rahul",
+    "beneficiary": "sneha_69@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-139",
+    "note": "Dinner reimbursement",
+    "beneficiary": "pooja_76@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-140",
+    "note": "Rent payment for September",
+    "beneficiary": "raj_30@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-141",
+    "note": "Books and study material",
+    "beneficiary": "aarav_91@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-142",
+    "note": "Groceries refund",
+    "beneficiary": "sneha_16@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-143",
+    "note": "Transfer to family",
+    "beneficiary": "sneha_37@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-144",
+    "note": "Transfer to family",
+    "beneficiary": "vikram_12@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-145",
+    "note": "Monthly savings",
+    "beneficiary": "pooja_67@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-146",
+    "note": "Dinner reimbursement",
+    "beneficiary": "priya_63@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-147",
+    "note": "Dinner reimbursement",
+    "beneficiary": "pooja_13@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-148",
+    "note": "Office expense",
+    "beneficiary": "amit_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-149",
+    "note": "Electricity bill",
+    "beneficiary": "sneha_36@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-150",
+    "note": "Groceries refund",
+    "beneficiary": "aarav_16@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-151",
+    "note": "Car service",
+    "beneficiary": "vikram_33@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-152",
+    "note": "Groceries refund",
+    "beneficiary": "neha_26@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-153",
+    "note": "Rent payment for October",
+    "beneficiary": "pooja_46@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-154",
+    "note": "Dinner reimbursement",
+    "beneficiary": "rahul_31@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-155",
+    "note": "Lunch with Ananya",
+    "beneficiary": "rahul_97@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-156",
+    "note": "School fees for Raj",
+    "beneficiary": "vikram_47@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-157",
+    "note": "Groceries refund",
+    "beneficiary": "rahul_46@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-158",
+    "note": "Gift for Riya",
+    "beneficiary": "vikram_13@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-159",
+    "note": "Gift for Neha",
+    "beneficiary": "karan_69@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-160",
+    "note": "Home repair charges",
+    "beneficiary": "neha_33@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-161",
+    "note": "Office expense",
+    "beneficiary": "pooja_14@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-162",
+    "note": "Rent payment for November",
+    "beneficiary": "pooja_13@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-163",
+    "note": "Groceries refund",
+    "beneficiary": "neha_65@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-164",
+    "note": "Home repair charges",
+    "beneficiary": "priya_72@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-165",
+    "note": "Lunch with Rahul",
+    "beneficiary": "sneha_95@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-166",
+    "note": "Dinner reimbursement",
+    "beneficiary": "riya_42@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-167",
+    "note": "School fees for Vikram",
+    "beneficiary": "amit_48@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-168",
+    "note": "Gift for Riya",
+    "beneficiary": "riya_69@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-169",
+    "note": "Subscription renewal",
+    "beneficiary": "karan_71@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-170",
+    "note": "Rent payment for September",
+    "beneficiary": "ananya_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-171",
+    "note": "Office expense",
+    "beneficiary": "priya_24@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-172",
+    "note": "Groceries refund",
+    "beneficiary": "raj_77@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-173",
+    "note": "Gym membership fee",
+    "beneficiary": "ananya_38@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-174",
+    "note": "Gift for Rahul",
+    "beneficiary": "priya_86@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-175",
+    "note": "Gym membership fee",
+    "beneficiary": "sneha_58@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-176",
+    "note": "Transfer to family",
+    "beneficiary": "sneha_90@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-177",
+    "note": "Electricity bill",
+    "beneficiary": "riya_53@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-178",
+    "note": "Electricity bill",
+    "beneficiary": "priya_31@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-179",
+    "note": "Car service",
+    "beneficiary": "aarav_53@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-180",
+    "note": "Gift for Pooja",
+    "beneficiary": "riya_62@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-181",
+    "note": "Groceries refund",
+    "beneficiary": "vikram_94@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-182",
+    "note": "Office expense",
+    "beneficiary": "pooja_22@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-183",
+    "note": "Books and study material",
+    "beneficiary": "priya_81@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-184",
+    "note": "Home repair charges",
+    "beneficiary": "karan_44@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-185",
+    "note": "School fees for Priya",
+    "beneficiary": "aarav_80@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-186",
+    "note": "Gift for Sneha",
+    "beneficiary": "vikram_96@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-187",
+    "note": "Electricity bill",
+    "beneficiary": "ananya_46@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-188",
+    "note": "Office expense",
+    "beneficiary": "amit_73@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-189",
+    "note": "Office expense",
+    "beneficiary": "priya_65@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-190",
+    "note": "Electricity bill",
+    "beneficiary": "amit_15@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-191",
+    "note": "Books and study material",
+    "beneficiary": "ananya_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-192",
+    "note": "Books and study material",
+    "beneficiary": "amit_56@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-193",
+    "note": "Rent payment for July",
+    "beneficiary": "priya_57@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-194",
+    "note": "Transfer to family",
+    "beneficiary": "amit_79@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-195",
+    "note": "Lunch with Sneha",
+    "beneficiary": "priya_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-196",
+    "note": "Electricity bill",
+    "beneficiary": "sneha_84@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-197",
+    "note": "Dinner reimbursement",
+    "beneficiary": "amit_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-198",
+    "note": "Car service",
+    "beneficiary": "vikram_31@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-199",
+    "note": "Lunch with Vikram",
+    "beneficiary": "karan_36@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-200",
+    "note": "Car service",
+    "beneficiary": "karan_83@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-201",
+    "note": "Lunch with Riya",
+    "beneficiary": "neha_13@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-202",
+    "note": "Office expense",
+    "beneficiary": "karan_63@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-203",
+    "note": "Electricity bill",
+    "beneficiary": "neha_27@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-204",
+    "note": "Lunch with Aarav",
+    "beneficiary": "priya_75@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-205",
+    "note": "Gift for Ananya",
+    "beneficiary": "priya_98@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-206",
+    "note": "Electricity bill",
+    "beneficiary": "amit_68@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-207",
+    "note": "Electricity bill",
+    "beneficiary": "rahul_95@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-208",
+    "note": "Lunch with Pooja",
+    "beneficiary": "aarav_97@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-209",
+    "note": "Subscription renewal",
+    "beneficiary": "karan_22@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-210",
+    "note": "Dinner reimbursement",
+    "beneficiary": "priya_83@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-211",
+    "note": "Lunch with Aarav",
+    "beneficiary": "vikram_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-212",
+    "note": "Books and study material",
+    "beneficiary": "sneha_10@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-213",
+    "note": "Rent payment for July",
+    "beneficiary": "amit_77@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-214",
+    "note": "Monthly savings",
+    "beneficiary": "karan_91@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-215",
+    "note": "Dinner reimbursement",
+    "beneficiary": "riya_91@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-216",
+    "note": "School fees for Priya",
+    "beneficiary": "sneha_70@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-217",
+    "note": "Books and study material",
+    "beneficiary": "ananya_48@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-218",
+    "note": "Rent payment for May",
+    "beneficiary": "amit_97@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-219",
+    "note": "Subscription renewal",
+    "beneficiary": "amit_22@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-220",
+    "note": "Gym membership fee",
+    "beneficiary": "rahul_95@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-221",
+    "note": "Dinner reimbursement",
+    "beneficiary": "priya_61@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-222",
+    "note": "Gym membership fee",
+    "beneficiary": "amit_95@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-223",
+    "note": "Home repair charges",
+    "beneficiary": "priya_52@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-224",
+    "note": "Rent payment for September",
+    "beneficiary": "aarav_78@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-225",
+    "note": "Groceries refund",
+    "beneficiary": "ananya_28@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-226",
+    "note": "Gym membership fee",
+    "beneficiary": "aarav_85@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-227",
+    "note": "Office expense",
+    "beneficiary": "aarav_65@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-228",
+    "note": "Transfer to family",
+    "beneficiary": "amit_92@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-229",
+    "note": "Subscription renewal",
+    "beneficiary": "karan_85@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-230",
+    "note": "Office expense",
+    "beneficiary": "aarav_30@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-231",
+    "note": "Gift for Raj",
+    "beneficiary": "karan_79@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-232",
+    "note": "Dinner reimbursement",
+    "beneficiary": "vikram_19@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-233",
+    "note": "Lunch with Ananya",
+    "beneficiary": "raj_42@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-234",
+    "note": "Rent payment for November",
+    "beneficiary": "sneha_59@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-235",
+    "note": "Transfer to family",
+    "beneficiary": "priya_42@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-236",
+    "note": "Transfer to family",
+    "beneficiary": "amit_15@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-237",
+    "note": "Rent payment for July",
+    "beneficiary": "raj_41@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-238",
+    "note": "Gym membership fee",
+    "beneficiary": "rahul_12@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-239",
+    "note": "Subscription renewal",
+    "beneficiary": "raj_15@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-240",
+    "note": "Rent payment for September",
+    "beneficiary": "sneha_33@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-241",
+    "note": "Subscription renewal",
+    "beneficiary": "priya_86@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-242",
+    "note": "Gym membership fee",
+    "beneficiary": "priya_41@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-243",
+    "note": "Transfer to family",
+    "beneficiary": "pooja_79@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-244",
+    "note": "Gym membership fee",
+    "beneficiary": "priya_24@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-245",
+    "note": "School fees for Amit",
+    "beneficiary": "riya_31@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-246",
+    "note": "Gym membership fee",
+    "beneficiary": "riya_73@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-247",
+    "note": "Monthly savings",
+    "beneficiary": "vikram_52@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-248",
+    "note": "Monthly savings",
+    "beneficiary": "riya_74@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-249",
+    "note": "School fees for Neha",
+    "beneficiary": "ananya_94@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-250",
+    "note": "Car service",
+    "beneficiary": "riya_65@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-251",
+    "note": "Monthly savings",
+    "beneficiary": "karan_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-252",
+    "note": "Subscription renewal",
+    "beneficiary": "priya_52@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-253",
+    "note": "Dinner reimbursement",
+    "beneficiary": "karan_65@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-254",
+    "note": "Books and study material",
+    "beneficiary": "amit_46@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-255",
+    "note": "Rent payment for March",
+    "beneficiary": "amit_17@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-256",
+    "note": "School fees for Priya",
+    "beneficiary": "pooja_43@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-257",
+    "note": "Lunch with Rahul",
+    "beneficiary": "karan_60@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-258",
+    "note": "Transfer to family",
+    "beneficiary": "aarav_13@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-259",
+    "note": "Monthly savings",
+    "beneficiary": "riya_35@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-260",
+    "note": "Gift for Riya",
+    "beneficiary": "amit_76@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-261",
+    "note": "Monthly savings",
+    "beneficiary": "riya_87@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-262",
+    "note": "Transfer to family",
+    "beneficiary": "vikram_96@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-263",
+    "note": "Office expense",
+    "beneficiary": "vikram_25@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-264",
+    "note": "Car service",
+    "beneficiary": "pooja_42@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-265",
+    "note": "Gym membership fee",
+    "beneficiary": "karan_14@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-266",
+    "note": "Gym membership fee",
+    "beneficiary": "priya_15@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-267",
+    "note": "School fees for Priya",
+    "beneficiary": "amit_81@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-268",
+    "note": "Monthly savings",
+    "beneficiary": "aarav_84@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-269",
+    "note": "Monthly savings",
+    "beneficiary": "neha_47@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-270",
+    "note": "Gym membership fee",
+    "beneficiary": "rahul_49@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-271",
+    "note": "Dinner reimbursement",
+    "beneficiary": "vikram_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-272",
+    "note": "Groceries refund",
+    "beneficiary": "sneha_19@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-273",
+    "note": "Car service",
+    "beneficiary": "vikram_11@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-274",
+    "note": "Monthly savings",
+    "beneficiary": "karan_16@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-275",
+    "note": "Electricity bill",
+    "beneficiary": "aarav_93@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-276",
+    "note": "School fees for Rahul",
+    "beneficiary": "raj_31@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-277",
+    "note": "Subscription renewal",
+    "beneficiary": "riya_12@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-278",
+    "note": "Gym membership fee",
+    "beneficiary": "ananya_36@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-279",
+    "note": "Subscription renewal",
+    "beneficiary": "priya_82@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-280",
+    "note": "Dinner reimbursement",
+    "beneficiary": "riya_52@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-281",
+    "note": "Monthly savings",
+    "beneficiary": "riya_45@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-282",
+    "note": "Subscription renewal",
+    "beneficiary": "neha_35@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-283",
+    "note": "Rent payment for November",
+    "beneficiary": "karan_13@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-284",
+    "note": "Transfer to family",
+    "beneficiary": "pooja_86@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-285",
+    "note": "Office expense",
+    "beneficiary": "aarav_10@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-286",
+    "note": "Groceries refund",
+    "beneficiary": "pooja_89@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-287",
+    "note": "Groceries refund",
+    "beneficiary": "karan_77@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-288",
+    "note": "Dinner reimbursement",
+    "beneficiary": "amit_22@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-289",
+    "note": "Gift for Raj",
+    "beneficiary": "neha_96@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-290",
+    "note": "Gift for Riya",
+    "beneficiary": "vikram_44@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-291",
+    "note": "Home repair charges",
+    "beneficiary": "vikram_65@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-292",
+    "note": "Rent payment for December",
+    "beneficiary": "amit_18@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-293",
+    "note": "Gift for Vikram",
+    "beneficiary": "priya_64@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-294",
+    "note": "Lunch with Priya",
+    "beneficiary": "sneha_24@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-295",
+    "note": "Rent payment for March",
+    "beneficiary": "riya_41@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-296",
+    "note": "Lunch with Sneha",
+    "beneficiary": "riya_40@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-297",
+    "note": "Subscription renewal",
+    "beneficiary": "priya_69@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-298",
+    "note": "Car service",
+    "beneficiary": "karan_67@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "BEN-299",
+    "note": "School fees for Vikram",
+    "beneficiary": "aarav_83@upi",
+    "label": "BENIGN"
+  },
+  {
+    "case_id": "SCAM-000",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_270@upi",
     "label": "SCAM_GUIDED"
   },
   {
-    "case_id": "FR-002",
-    "note": "urgent verification",
-    "beneficiary": "external_service@upi",
-    "label": "SCAM_LIKE"
+    "case_id": "SCAM-001",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_895@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-002",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_139@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-003",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_229@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-004",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_609@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-005",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_368@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-006",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_305@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-007",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_265@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-008",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_715@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-009",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_844@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-010",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_488@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-011",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_239@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-012",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_569@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-013",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_752@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-014",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_852@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-015",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_863@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-016",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_650@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-017",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_973@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-018",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_266@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-019",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_436@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-020",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_304@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-021",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_587@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-022",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_461@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-023",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_740@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-024",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_136@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-025",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_912@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-026",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_305@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-027",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_943@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-028",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_156@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-029",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_367@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-030",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_718@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-031",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_372@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-032",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_613@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-033",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_990@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-034",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_684@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-035",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_576@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-036",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_475@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-037",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_103@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-038",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_446@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-039",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_714@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-040",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_164@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-041",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_337@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-042",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_968@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-043",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_962@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-044",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_257@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-045",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_752@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-046",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_673@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-047",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_296@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-048",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_972@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-049",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_853@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-050",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_730@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-051",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_266@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-052",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_626@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-053",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_966@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-054",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_107@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-055",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_524@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-056",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_141@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-057",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_231@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-058",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_844@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-059",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_492@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-060",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_935@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-061",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_537@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-062",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_511@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-063",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_388@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-064",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_968@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-065",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_673@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-066",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_694@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-067",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_116@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-068",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_148@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-069",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_480@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-070",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_342@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-071",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_315@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-072",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_144@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-073",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_655@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-074",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_331@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-075",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_397@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-076",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_444@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-077",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_463@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-078",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_598@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-079",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_859@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-080",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_425@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-081",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_823@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-082",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_879@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-083",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_719@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-084",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_852@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-085",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_633@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-086",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_846@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-087",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_532@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-088",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_846@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-089",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_414@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-090",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_824@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-091",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_226@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-092",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_899@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-093",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_265@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-094",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_915@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-095",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_466@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-096",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_950@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-097",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_100@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-098",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_429@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-099",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_746@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-100",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_389@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-101",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_192@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-102",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_130@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-103",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_372@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-104",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_297@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-105",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_291@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-106",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_770@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-107",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_535@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-108",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_507@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-109",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_102@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-110",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_801@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-111",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_878@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-112",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_801@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-113",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_410@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-114",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_773@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-115",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_117@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-116",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_669@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-117",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_433@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-118",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_617@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-119",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_861@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-120",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_348@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-121",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_627@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-122",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_687@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-123",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_815@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-124",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_759@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-125",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_638@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-126",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_254@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-127",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_566@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-128",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_682@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-129",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_665@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-130",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_475@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-131",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_553@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-132",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_904@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-133",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_561@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-134",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_827@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-135",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_415@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-136",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_681@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-137",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_913@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-138",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_318@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-139",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_328@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-140",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_543@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-141",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_428@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-142",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_931@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-143",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_359@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-144",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_890@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-145",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_487@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-146",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_560@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-147",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_329@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-148",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_607@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-149",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_369@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-150",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_312@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-151",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_853@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-152",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_986@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-153",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_853@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-154",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_435@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-155",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_892@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-156",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_100@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-157",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_595@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-158",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_980@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-159",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_525@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-160",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_978@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-161",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_939@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-162",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_127@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-163",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_103@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-164",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_606@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-165",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_242@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-166",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_439@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-167",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_622@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-168",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_431@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-169",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_539@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-170",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_678@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-171",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_594@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-172",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_709@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-173",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_542@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-174",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_310@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-175",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_336@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-176",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_146@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-177",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_148@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-178",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_186@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-179",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_885@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-180",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_191@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-181",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_702@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-182",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_352@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-183",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_226@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-184",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_297@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-185",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_702@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-186",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_614@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-187",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_358@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-188",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_278@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-189",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_431@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-190",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_635@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-191",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_644@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-192",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_152@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-193",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_166@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-194",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_158@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-195",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_385@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-196",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_407@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-197",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_907@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-198",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_682@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-199",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_360@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-200",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_898@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-201",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_598@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-202",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_676@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-203",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_759@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-204",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_532@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-205",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_210@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-206",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_499@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-207",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_893@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-208",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_185@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-209",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_572@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-210",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_991@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-211",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_949@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-212",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_155@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-213",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_230@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-214",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_709@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-215",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_590@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-216",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_847@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-217",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_328@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-218",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_430@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-219",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_109@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-220",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_791@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-221",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_674@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-222",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_659@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-223",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_119@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-224",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_981@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-225",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_434@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-226",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_594@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-227",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_874@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-228",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_793@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-229",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_643@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-230",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_295@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-231",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_624@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-232",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_954@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-233",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_183@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-234",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_906@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-235",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_171@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-236",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_473@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-237",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_874@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-238",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_679@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-239",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_856@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-240",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_738@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-241",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_697@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-242",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_935@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-243",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_686@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-244",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_202@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-245",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_221@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-246",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_586@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-247",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_840@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-248",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_595@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-249",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_217@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-250",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_852@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-251",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_710@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-252",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_841@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-253",
+    "note": "Urgent verification fee",
+    "beneficiary": "agent_902@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-254",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_795@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-255",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_349@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-256",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_201@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-257",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_910@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-258",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_754@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-259",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_403@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-260",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_201@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-261",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_364@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-262",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_348@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-263",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_712@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-264",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_624@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-265",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_496@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-266",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_785@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-267",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_913@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-268",
+    "note": "Account unlock charge",
+    "beneficiary": "agent_355@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-269",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_734@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-270",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_790@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-271",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_941@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-272",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_792@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-273",
+    "note": "Lottery processing tax",
+    "beneficiary": "agent_143@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-274",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_382@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-275",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_476@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-276",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_900@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-277",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_929@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-278",
+    "note": "Income tax penalty release",
+    "beneficiary": "agent_540@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-279",
+    "note": "KYC verification fee",
+    "beneficiary": "agent_256@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-280",
+    "note": "Tech support security deposit",
+    "beneficiary": "agent_662@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-281",
+    "note": "Customs clearance fee",
+    "beneficiary": "agent_414@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-282",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_859@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-283",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_670@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-284",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_802@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-285",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_172@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-286",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_458@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-287",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_474@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-288",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_355@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-289",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_761@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-290",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_313@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-291",
+    "note": "Anti-money laundering audit charge",
+    "beneficiary": "agent_176@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-292",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_118@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-293",
+    "note": "Insurance processing clearance",
+    "beneficiary": "agent_325@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-294",
+    "note": "RBI compliance payment",
+    "beneficiary": "agent_164@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-295",
+    "note": "Digital arrest bail bond",
+    "beneficiary": "agent_168@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-296",
+    "note": "Refund processing deposit",
+    "beneficiary": "agent_272@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-297",
+    "note": "Agent verification fee",
+    "beneficiary": "agent_288@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-298",
+    "note": "Crypto wallet activation fee",
+    "beneficiary": "agent_627@upi",
+    "label": "SCAM_GUIDED"
+  },
+  {
+    "case_id": "SCAM-299",
+    "note": "Credit card verification payment",
+    "beneficiary": "agent_223@upi",
+    "label": "SCAM_GUIDED"
   }
 ]

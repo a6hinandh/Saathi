@@ -47,13 +47,20 @@ def train_behavior_anomaly(profiles: List[dict]):
     if len(profiles) < 5:
         print("Not enough profiles to train IsolationForest — creating a small synthetic set")
         # create small synthetic
-        X = np.random.normal(size=(50, 6))
+        X = np.random.normal(size=(50, 9))
+        keys = [
+            'avg_key_interval', 'typing_variance', 'backspace_rate', 'mouse_speed',
+            'confirmation_delay', 'amount_edit_count', 'focus_switch_count', 'paste_count', 'hesitation_delay'
+        ]
     else:
-        keys = sorted({k for p in profiles for k in p.keys()})
+        keys = [
+            'avg_key_interval', 'typing_variance', 'backspace_rate', 'mouse_speed',
+            'confirmation_delay', 'amount_edit_count', 'focus_switch_count', 'paste_count', 'hesitation_delay'
+        ]
         X = np.array([[float(p.get(k, 0.0)) for k in keys] for p in profiles])
-    iso = IsolationForest(n_estimators=100, contamination=0.05, random_state=42)
+    iso = IsolationForest(n_estimators=100, contamination=0.10, random_state=42)
     iso.fit(X)
-    joblib.dump({'isolation_forest': iso, 'feature_keys': keys if len(profiles) >= 5 else None}, ARTIFACT_DIR / 'behavior_anomaly_model.joblib')
+    joblib.dump({'isolation_forest': iso, 'feature_keys': keys}, ARTIFACT_DIR / 'behavior_anomaly_model.joblib')
     print("Saved behavior_anomaly_model.joblib")
 
 
@@ -66,7 +73,7 @@ def main():
     labels = []
     for c in fraud_cases:
         note = c.get('note', '')
-        label = 1 if c.get('label', 'fraud') in ('fraud', 'scam') else 0
+        label = 1 if c.get('label', '').lower() in ('fraud', 'scam', 'scam_guided', 'scam_like') else 0
         notes.append(note)
         labels.append(label)
 

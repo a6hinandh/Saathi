@@ -1,6 +1,6 @@
 # Frontend
 
-Innovate Bank internet banking portal and Saathi behavioral SDK demo.
+Saathi Bank of India internet banking portal and Saathi behavioral SDK demo.
 
 ## Stack
 
