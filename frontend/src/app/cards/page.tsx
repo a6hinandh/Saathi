@@ -2,235 +2,394 @@
 
 import { useState } from 'react';
 import { BankLayout } from '@/components/layout/BankLayout';
-
-const controlsList = [
-  { 
-    key: 'frozen' as const, 
-    label: 'Freeze Card', 
-    desc: 'Instantly block all ATM, online, and offline transactions.',
-    icon: (
-      <svg className="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-      </svg>
-    )
-  },
-  { 
-    key: 'online' as const, 
-    label: 'Online E-Commerce', 
-    desc: 'Allow online transactions on domestic shopping platforms.',
-    icon: (
-      <svg className="w-4 h-4 text-cyan-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-      </svg>
-    )
-  },
-  { 
-    key: 'contactless' as const, 
-    label: 'Contactless / Tap-to-Pay', 
-    desc: 'Allow NFC payments without PIN entry up to ₹5,000.',
-    icon: (
-      <svg className="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636a9 9 0 010 12.728m0 0l-1.414-1.414a7 7 0 000-9.9m0 0L15.536 8.464a5 5 0 010 7.072m0 0l-1.414-1.414a3 3 0 000-4.242" />
-      </svg>
-    )
-  },
-  { 
-    key: 'international' as const, 
-    label: 'International Transactions', 
-    desc: 'Enable payments outside India. Keep disabled for max safety.',
-    icon: (
-      <svg className="w-4 h-4 text-[#F37021] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2a2.5 2.5 0 002.5-2.5V8a2 2 0 00-2-2h-1.5a2 2 0 01-2-2V3.07M12 21a9 9 0 100-18 9 9 0 000 18z" />
-      </svg>
-    )
-  }
-];
+import { cardPortfolio as initialCards } from '@/lib/constants';
 
 export default function CardsPage() {
-  // Mock state for card controls
-  const [controls, setControls] = useState({
-    debit: {
-      frozen: false,
-      online: true,
-      international: false,
-      contactless: true
-    },
-    credit: {
-      frozen: false,
-      online: true,
-      international: true,
-      contactless: false
-    }
+  const [cardsList, setCardsList] = useState(initialCards);
+  const [frozenCards, setFrozenCards] = useState<string[]>([]);
+  const [limits, setLimits] = useState<Record<string, number>>({
+    '•• 2287': 150000,
+    '•• 6643': 200000
   });
 
-  const toggleDebit = (key: 'frozen' | 'online' | 'international' | 'contactless') => {
-    setControls((prev) => ({
-      ...prev,
-      debit: {
-        ...prev.debit,
-        [key]: !prev.debit[key]
-      }
-    }));
+  // Modal States
+  const [pinCard, setPinCard] = useState<string | null>(null);
+  const [enteredPin, setEnteredPin] = useState<string>('');
+  const [pinSuccess, setPinSuccess] = useState<string>('');
+  const [keypadOrder] = useState(() => [...Array(10).keys()].sort(() => Math.random() - 0.5));
+
+  const [travelCard, setTravelCard] = useState<string | null>(null);
+  const [travelCountry, setTravelCountry] = useState('United States');
+  const [travelSuccess, setTravelSuccess] = useState('');
+
+  const [limitCard, setLimitCard] = useState<string | null>(null);
+  const [tempLimit, setTempLimit] = useState<number>(150000);
+
+  const toggleFreeze = (cardNumber: string) => {
+    if (frozenCards.includes(cardNumber)) {
+      setFrozenCards(frozenCards.filter(c => c !== cardNumber));
+    } else {
+      setFrozenCards([...frozenCards, cardNumber]);
+    }
   };
 
-  const toggleCredit = (key: 'frozen' | 'online' | 'international' | 'contactless') => {
-    setControls((prev) => ({
-      ...prev,
-      credit: {
-        ...prev.credit,
-        [key]: !prev.credit[key]
-      }
-    }));
+  const handlePinSubmit = () => {
+    if (enteredPin.length === 4) {
+      setPinSuccess(`PIN for Card ending in ${pinCard?.slice(-4)} has been successfully updated.`);
+      setEnteredPin('');
+      setTimeout(() => {
+        setPinCard(null);
+        setPinSuccess('');
+      }, 2000);
+    }
+  };
+
+  const handleTravelSubmit = () => {
+    setTravelSuccess(`International Travel Notice activated for ${travelCountry} on Card ending in ${travelCard?.slice(-4)}.`);
+    setTimeout(() => {
+      setTravelCard(null);
+      setTravelSuccess('');
+    }, 3000);
+  };
+
+  const handleLimitSubmit = () => {
+    if (limitCard) {
+      setLimits({ ...limits, [limitCard]: tempLimit });
+      setLimitCard(null);
+    }
   };
 
   return (
     <BankLayout>
-      <main className="mx-auto max-w-7xl px-6 py-8 lg:px-8 space-y-8 animate-fadeIn">
-        {/* Banner Section */}
-        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_10px_30px_rgba(15,23,42,0.02)]">
-          <p className="text-[10px] uppercase tracking-[0.25em] text-[#F37021] font-bold">Portfolios</p>
-          <h1 className="mt-2 text-4xl font-black text-slate-800 tracking-tight">Card Management</h1>
-          <p className="mt-2 text-sm text-slate-500 leading-relaxed max-w-3xl font-medium">
-            Lock/unlock your debit and credit cards, adjust limits, and disable swipe configurations in real-time. In case of vishing threats, freeze card immediately.
+      <main className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+        <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+          <p className="text-xs uppercase tracking-[0.28em] text-[#F37021] font-bold">Cards</p>
+          <h1 className="mt-2 text-4xl font-semibold text-[#0B2545]">Card controls</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 font-medium">
+            Review debit and credit cards, toggle security locks, adjust spending caps, and schedule global travel notices instantly.
           </p>
-        </section>
 
-        {/* Cards Grid */}
-        <div className="grid gap-8 lg:grid-cols-2">
-          {/* Card 1: RuPay Debit */}
-          <section className="space-y-6">
-            <h2 className="text-xl font-black text-slate-800 tracking-tight">RuPay Platinum Debit</h2>
-            
-            {/* Visual Card */}
-            <div className={`rounded-3xl bg-gradient-to-tr from-[#0a1e36] via-[#102d52] to-[#1c4b82] p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between h-56 transition ${controls.debit.frozen ? 'grayscale opacity-75' : ''}`}>
-              <div className="absolute right-0 bottom-0 w-36 h-36 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
-              
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-[#F37021] font-black">Saathi Bank of India</p>
-                  <p className="text-xs font-semibold text-white/70 mt-1">PLATINUM DEBIT</p>
-                </div>
-                {/* Chip */}
-                <div className="w-9 h-7 rounded-md bg-amber-400/80 border border-amber-300 shadow-inner flex items-center justify-center">
-                  <span className="w-5 h-4 border border-amber-500/25 rounded-xs"></span>
-                </div>
-              </div>
+          <div className="mt-8 grid gap-8 lg:grid-cols-2">
+            {cardsList.map((card) => {
+              const isFrozen = frozenCards.includes(card.number);
+              const currentLimit = limits[card.number] || 150000;
+              const isRuPay = card.name.includes('RuPay');
 
-              <div>
-                <p className="text-xl font-bold font-mono tracking-widest text-white/95">•••• •••• •••• 2287</p>
-                <p className="mt-2 text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Daily Limit: ₹1,50,000.00</p>
-              </div>
+              return (
+                <article
+                  key={card.name}
+                  className={`relative rounded-[2rem] border p-6 text-white shadow-2xl transition duration-300 overflow-hidden flex flex-col justify-between min-h-[360px] ${
+                    isFrozen
+                      ? 'border-slate-800 bg-slate-950/90 shadow-none'
+                      : isRuPay
+                      ? 'border-blue-950 bg-gradient-to-br from-[#040D1A] via-[#0B2545] to-[#134074] shadow-[#0B2545]/20 hover:scale-[1.01]'
+                      : 'border-slate-900 bg-gradient-to-br from-[#0D0D11] via-[#1E1E24] to-[#2B2D42] shadow-slate-800/10 hover:scale-[1.01]'
+                  }`}
+                >
+                  {/* Frost Lock Overlay */}
+                  {isFrozen && (
+                    <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-xs z-10 flex flex-col items-center justify-center text-center p-6 transition-all duration-300">
+                      <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 text-lg animate-pulse mb-3">
+                        <svg className="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                      </div>
+                      <h3 className="text-lg font-bold text-red-500 tracking-wider uppercase">CARD FROZEN</h3>
+                      <p className="mt-1.5 text-xs text-slate-400 max-w-xs font-semibold">
+                        All domestic, international, and online purchase channels are locked. Click below to unfreeze.
+                      </p>
+                      <button
+                        onClick={() => toggleFreeze(card.number)}
+                        className="mt-4 rounded-full bg-red-600 hover:bg-red-700 transition px-5 py-2 text-xs font-extrabold uppercase tracking-wider text-white"
+                      >
+                        Unfreeze Card
+                      </button>
+                    </div>
+                  )}
 
-              <div className="flex justify-between items-end border-t border-white/10 pt-3 text-[10px] text-white/60">
-                <div>
-                  <p className="text-[8px] uppercase font-bold text-white/40">Card Holder</p>
-                  <p className="font-bold text-white mt-0.5">ASHA MENON</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-amber-400 uppercase tracking-widest">{controls.debit.frozen ? 'FROZEN' : 'ACTIVE'}</p>
-                </div>
-              </div>
-            </div>
+                  {/* Card Front Top */}
+                  <div>
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <span className="text-[10px] uppercase font-black tracking-[0.25em] text-[#F37021]">
+                          {isRuPay ? 'Saathi Secure Net' : 'Saathi Select'}
+                        </span>
+                        <h2 className="mt-1 text-2xl font-black tracking-tight text-white">{card.name}</h2>
+                        <p className="mt-1 text-sm font-mono text-white/50 tracking-widest">{card.number}</p>
+                      </div>
+                      <span className="rounded-full bg-white/10 border border-white/20 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-amber-400">
+                        {card.status}
+                      </span>
+                    </div>
 
-            {/* Controls Panel */}
-            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-xs space-y-4">
-              <h3 className="text-sm font-black text-slate-800 tracking-tight uppercase border-b pb-3.5">Debit Controls</h3>
-              
-              {controlsList.map((item) => (
-                <div key={item.key} className="flex items-center justify-between gap-6 py-2 border-b last:border-0 border-slate-100 pb-3 last:pb-0">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 bg-slate-50 rounded-xl border border-slate-100 shrink-0">
-                      {item.icon}
-                    </span>
-                    <div>
-                      <p className="text-xs font-bold text-slate-800">{item.label}</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5 leading-relaxed font-semibold">{item.desc}</p>
+                    <div className="mt-8 flex items-center justify-between gap-4 border-t border-white/5 pt-4 text-xs text-white/70">
+                      <div>
+                        <p className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Cardholder</p>
+                        <p className="font-extrabold text-white mt-0.5">ASHA MENON</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Active limit</p>
+                        <p className="font-bold text-amber-400 mt-0.5">
+                          {isRuPay ? `₹${currentLimit.toLocaleString('en-IN')} Daily` : `Outstanding: ₹24,860.00`}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <button 
-                    onClick={() => toggleDebit(item.key)}
-                    className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out outline-none ${
-                      controls.debit[item.key] ? (item.key === 'frozen' ? 'bg-red-500' : 'bg-[#0B2545]') : 'bg-slate-200'
-                    }`}
-                  >
-                    <span 
-                      className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                        controls.debit[item.key] ? 'translate-x-5' : 'translate-x-0'
-                      }`}
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </section>
 
-          {/* Card 2: Visa Select Credit */}
-          <section className="space-y-6">
-            <h2 className="text-xl font-black text-slate-800 tracking-tight">Visa Select Credit Card</h2>
-            
-            {/* Visual Card */}
-            <div className={`rounded-3xl bg-gradient-to-tr from-[#6b21a8] via-[#581c87] to-[#4c1d95] p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between h-56 transition ${controls.credit.frozen ? 'grayscale opacity-75' : ''}`}>
-              <div className="absolute right-0 bottom-0 w-36 h-36 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
-              
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-amber-400 font-black">Saathi Bank of India</p>
-                  <p className="text-xs font-semibold text-white/70 mt-1">SELECT CREDIT</p>
-                </div>
-                {/* Chip */}
-                <div className="w-9 h-7 rounded-md bg-amber-400/80 border border-amber-300 shadow-inner flex items-center justify-center">
-                  <span className="w-5 h-4 border border-amber-500/25 rounded-xs"></span>
-                </div>
-              </div>
+                  {/* Card Front Actions */}
+                  <div className="mt-8 grid grid-cols-2 gap-3 text-xs">
+                    <button
+                      onClick={() => toggleFreeze(card.number)}
+                      className="rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition px-4 py-3 text-left font-bold flex items-center justify-between"
+                    >
+                      <span className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        Freeze Card
+                      </span>
+                      <span className="text-[9px] text-[#F37021] font-black uppercase">Lock</span>
+                    </button>
 
-              <div>
-                <p className="text-xl font-bold font-mono tracking-widest text-white/95">•••• •••• •••• 6643</p>
-                <p className="mt-2 text-[10px] uppercase tracking-wider text-slate-300 font-semibold">Outstanding Balance: ₹24,860.00</p>
-              </div>
+                    <button
+                      onClick={() => {
+                        setLimitCard(card.number);
+                        setTempLimit(currentLimit);
+                      }}
+                      className="rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition px-4 py-3 text-left font-bold flex items-center justify-between"
+                    >
+                      <span className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+                        </svg>
+                        Set Limits
+                      </span>
+                      <span className="text-[9px] text-emerald-400 font-black uppercase">Adjust</span>
+                    </button>
 
-              <div className="flex justify-between items-end border-t border-white/10 pt-3 text-[10px] text-white/60">
-                <div>
-                  <p className="text-[8px] uppercase font-bold text-white/40">Card Holder</p>
-                  <p className="font-bold text-white mt-0.5">ASHA MENON</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-purple-300 uppercase tracking-widest">{controls.credit.frozen ? 'FROZEN' : 'ACTIVE'}</p>
-                </div>
-              </div>
-            </div>
+                    <button
+                      onClick={() => {
+                        setPinCard(card.number);
+                        setEnteredPin('');
+                      }}
+                      className="rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition px-4 py-3 text-left font-bold flex items-center justify-between"
+                    >
+                      <span className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m-3.418 3.84a6 6 0 111.414-1.414l5.382 5.382a2 2 0 010 2.828l-1.414 1.414a2 2 0 01-2.828 0L14.582 12.84z" />
+                        </svg>
+                        Change PIN
+                      </span>
+                      <span className="text-[9px] text-cyan-400 font-black uppercase">Reset</span>
+                    </button>
 
-            {/* Controls Panel */}
-            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-xs space-y-4">
-              <h3 className="text-sm font-black text-slate-800 tracking-tight uppercase border-b pb-3.5">Credit Controls</h3>
-              
-              {controlsList.map((item) => (
-                <div key={item.key} className="flex items-center justify-between gap-6 py-2 border-b last:border-0 border-slate-100 pb-3 last:pb-0">
-                  <div className="flex items-center gap-3">
-                    <span className="p-2 bg-slate-50 rounded-xl border border-slate-100 shrink-0">
-                      {item.icon}
-                    </span>
-                    <div>
-                      <p className="text-xs font-bold text-slate-800">{item.label}</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5 leading-relaxed font-semibold">{item.desc}</p>
-                    </div>
+                    <button
+                      onClick={() => {
+                        setTravelCard(card.number);
+                      }}
+                      className="rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition px-4 py-3 text-left font-bold flex items-center justify-between"
+                    >
+                      <span className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2a2.5 2.5 0 002.5-2.5V8a2 2 0 00-2-2h-1.5a2 2 0 01-2-2V3.07M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                        </svg>
+                        Global Notice
+                      </span>
+                      <span className="text-[9px] text-amber-400 font-black uppercase">Travel</span>
+                    </button>
                   </div>
-                  <button 
-                    onClick={() => toggleCredit(item.key)}
-                    className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out outline-none ${
-                      controls.credit[item.key] ? (item.key === 'frozen' ? 'bg-red-500' : 'bg-[#0B2545]') : 'bg-slate-200'
-                    }`}
-                  >
-                    <span 
-                      className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                        controls.credit[item.key] ? 'translate-x-5' : 'translate-x-0'
-                      }`}
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </section>
+                </article>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Modal: Change PIN Keypad */}
+        {pinCard && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-6 backdrop-blur-sm animate-fadeIn">
+            <div className="max-w-sm w-full rounded-[2rem] bg-slate-900 border border-slate-800 p-6 text-white shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 className="text-md font-bold tracking-wide flex items-center gap-2">
+                  <svg className="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  Secure PIN Update
+                </h3>
+                <button onClick={() => setPinCard(null)} className="text-slate-400 hover:text-white text-lg font-black">×</button>
+              </div>
+
+              {pinSuccess ? (
+                <div className="my-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold text-center leading-5 flex flex-col items-center justify-center gap-2">
+                  <svg className="w-6 h-6 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{pinSuccess}</span>
+                </div>
+              ) : (
+                <div className="mt-4 space-y-4">
+                  <p className="text-xs text-slate-400 leading-5">
+                    For enhanced protection against screen-capturing, keycodes are randomized on load. Enter your new 4-digit card PIN.
+                  </p>
+
+                  <div className="flex justify-center gap-3 py-2">
+                    {[0, 1, 2, 3].map((idx) => (
+                      <span
+                        key={idx}
+                        className={`w-4 h-4 rounded-full border border-slate-700 flex items-center justify-center ${
+                          enteredPin.length > idx ? 'bg-[#F37021] border-[#F37021]' : 'bg-slate-800'
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Secure Keypad Grid */}
+                  <div className="grid grid-cols-3 gap-2 py-2">
+                    {keypadOrder.map((num) => (
+                      <button
+                        key={num}
+                        onClick={() => {
+                          if (enteredPin.length < 4) setEnteredPin(enteredPin + num);
+                        }}
+                        className="bg-slate-800 hover:bg-slate-700 transition active:bg-slate-600 rounded-xl py-3 font-semibold text-lg"
+                      >
+                        {num}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => setEnteredPin(enteredPin.slice(0, -1))}
+                      className="bg-slate-800/50 hover:bg-slate-700 text-slate-400 transition rounded-xl py-3 text-xs font-bold uppercase tracking-wider"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      onClick={handlePinSubmit}
+                      disabled={enteredPin.length !== 4}
+                      className="col-span-2 bg-[#F37021] hover:bg-[#E05A17] disabled:opacity-40 transition rounded-xl py-3 text-xs font-bold uppercase tracking-wider text-white"
+                    >
+                      Confirm PIN
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Modal: Travel Notice */}
+        {travelCard && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-6 backdrop-blur-sm animate-fadeIn">
+            <div className="max-w-md w-full rounded-[2rem] bg-white border border-slate-100 p-6 text-slate-900 shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 className="text-md font-bold tracking-wide text-[#0B2545] flex items-center gap-2">
+                  <svg className="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2a2.5 2.5 0 002.5-2.5V8a2 2 0 00-2-2h-1.5a2 2 0 01-2-2V3.07M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                  </svg>
+                  Add Travel Notice
+                </h3>
+                <button onClick={() => setTravelCard(null)} className="text-slate-400 hover:text-slate-950 text-xl font-bold">×</button>
+              </div>
+
+              {travelSuccess ? (
+                <div className="my-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold text-center leading-5 flex flex-col items-center justify-center gap-2">
+                  <svg className="w-6 h-6 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{travelSuccess}</span>
+                </div>
+              ) : (
+                <div className="mt-4 space-y-4">
+                  <p className="text-xs text-slate-600 leading-5">
+                    Saathi&apos;s AI engine automatically monitors foreign transaction locations. Inform us in advance to prevent false positives.
+                  </p>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Destination Country</label>
+                    <select
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs outline-none transition focus:border-slate-400 font-semibold text-slate-800"
+                      value={travelCountry}
+                      onChange={(e) => setTravelCountry(e.target.value)}
+                    >
+                      <option>United States</option>
+                      <option>United Kingdom</option>
+                      <option>Singapore</option>
+                      <option>United Arab Emirates</option>
+                      <option>Germany</option>
+                    </select>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Start Date</label>
+                      <input type="date" className="rounded-xl border border-slate-200 px-3 py-2 text-xs outline-none text-slate-700 font-semibold" defaultValue="2026-05-25" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">End Date</label>
+                      <input type="date" className="rounded-xl border border-slate-200 px-3 py-2 text-xs outline-none text-slate-700 font-semibold" defaultValue="2026-06-10" />
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleTravelSubmit}
+                    className="w-full mt-2 rounded-xl bg-[#0B2545] hover:bg-[#134074] transition text-white py-3 text-xs font-bold uppercase tracking-wider"
+                  >
+                    Activate Notice
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Modal: Set Limit Slider */}
+        {limitCard && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-6 backdrop-blur-sm animate-fadeIn">
+            <div className="max-w-md w-full rounded-[2rem] bg-white border border-slate-100 p-6 text-slate-900 shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 className="text-md font-bold tracking-wide text-[#0B2545] flex items-center gap-2">
+                  <svg className="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+                  </svg>
+                  Set Retail Limit
+                </h3>
+                <button onClick={() => setLimitCard(null)} className="text-slate-400 hover:text-slate-950 text-xl font-bold">×</button>
+              </div>
+
+              <div className="mt-4 space-y-5">
+                <p className="text-xs text-slate-600 leading-5 font-semibold">
+                  Slide below to calibrate the active daily transaction limits for Card ending in {limitCard.slice(-4)}. Adjustments reflect instantly.
+                </p>
+
+                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 text-center">
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Active Daily Cap</p>
+                  <p className="text-2xl font-bold text-[#0B2545] mt-1">₹{tempLimit.toLocaleString('en-IN')}</p>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <input
+                    type="range"
+                    min="10000"
+                    max="500000"
+                    step="10000"
+                    className="w-full accent-[#F37021] cursor-pointer"
+                    value={tempLimit}
+                    onChange={(e) => setTempLimit(Number(e.target.value))}
+                  />
+                  <div className="flex justify-between text-[10px] font-bold text-slate-400">
+                    <span>₹10,000</span>
+                    <span>₹5,00,000</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleLimitSubmit}
+                  className="w-full rounded-xl bg-[#0B2545] hover:bg-[#134074] transition text-white py-3 text-xs font-bold uppercase tracking-wider"
+                >
+                  Save Active Limits
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </BankLayout>
   );

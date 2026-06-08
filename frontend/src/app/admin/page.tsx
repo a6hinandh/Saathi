@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { AlertTable, DashboardAlertItem } from '@/components/dashboard/AlertTable';
 import { FraudOverviewCards } from '@/components/dashboard/FraudOverviewCards';
@@ -8,7 +8,9 @@ import { FraudHeatmap } from '@/components/dashboard/FraudHeatmap';
 import { FraudTimeline } from '@/components/dashboard/FraudTimeline';
 import { RiskSignalRail } from '@/components/dashboard/RiskSignalRail';
 import { FraudInsightPanel } from '@/components/dashboard/FraudInsightPanel';
+import { ShapWaterfallChart } from '@/components/charts/ShapWaterfallChart';
 import { api } from '@/lib/api';
+
 
 export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ export default function AdminDashboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Fetch overview stats and live threat feed
-  const fetchData = async (isInitial = false) => {
+  const fetchData = useCallback(async (isInitial = false) => {
     try {
       const res = await api.get('/admin/overview');
       setStats(res.data.stats);
@@ -49,16 +51,21 @@ export default function AdminDashboardPage() {
         setLoading(false);
       }
     }
-  };
+  }, [selectedAlert]);
 
   // Poll for live alerts updates every 3 seconds
   useEffect(() => {
-    fetchData(true);
+    const initialLoad = setTimeout(() => {
+      void fetchData(true);
+    }, 0);
     const interval = setInterval(() => {
-      fetchData(false);
+      void fetchData(false);
     }, 3000);
-    return () => clearInterval(interval);
-  }, [selectedAlert?.session_id]);
+    return () => {
+      clearTimeout(initialLoad);
+      clearInterval(interval);
+    };
+  }, [fetchData]);
 
   if (loading) {
     return (
@@ -269,65 +276,73 @@ export default function AdminDashboardPage() {
             selectedAlert={selectedAlert}
             onSelectAlert={setSelectedAlert}
           />
-          {/* Risk Heatmap block */}
+          {/* Risk Heatmap block (Full Width - UP) */}
           <FraudHeatmap cells={heatmapCells} />
+          
+          {/* AI Decision Explainability SHAP Chart (Full Width - DOWN) */}
+          <ShapWaterfallChart shapData={selectedAlert?.metadata?.shap_explanation} />
         </div>
 
-        <aside className="space-y-6">
-          {/* Monospace inspector console */}
-          {selectedAlert ? (
-            <div className="rounded-[2rem] border border-cyan-500/20 bg-slate-950 p-6 text-[#00ffcc] font-mono shadow-2xl relative overflow-hidden">
-              <div className="absolute inset-0 bg-scanline pointer-events-none opacity-[0.03]"></div>
-              <div className="flex items-center justify-between border-b border-cyan-500/10 pb-3">
-                <span className="text-xs uppercase tracking-widest text-cyan-400 font-bold flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  Session Telemetry Inspector
-                </span>
-                <span className="text-[9px] text-cyan-500/60 uppercase">Console Log V1.0.8</span>
+        <aside className="space-y-6">          {/* Telemetry and Signals side by side on tablet/laptop but stacked on xl and mobile */}
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-1">
+            {/* Monospace inspector console */}
+            {selectedAlert ? (
+              <div className="rounded-[2rem] border border-cyan-500/20 bg-slate-950 p-6 text-[#00ffcc] font-mono shadow-2xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-scanline pointer-events-none opacity-[0.03]"></div>
+                <div className="flex items-center justify-between border-b border-cyan-500/10 pb-3">
+                  <span className="text-xs uppercase tracking-widest text-cyan-400 font-bold flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Session Telemetry Inspector
+                  </span>
+                  <span className="text-[9px] text-cyan-500/60 uppercase">Console Log V1.0.8</span>
+                </div>
+                <div className="mt-4 space-y-2 text-xs">
+                  <div>
+                    <span className="text-slate-400 font-medium font-sans">SESSION ID  :</span> <span className="text-white font-semibold font-mono">{selectedAlert.session_id}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium font-sans">CUSTOMER ID :</span> <span className="text-white font-semibold font-mono">{selectedAlert.customer_id}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium font-sans">BENEFICIARY :</span> <span className="text-white font-semibold font-mono">{selectedAlert.beneficiary}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium font-sans">TX AMOUNT   :</span> <span className="text-white font-semibold font-mono">₹{selectedAlert.amount.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium font-sans">COERCION LBL:</span> <span className={`font-bold font-mono ${selectedAlert.coercion_label === 'SCAM_GUIDED' ? 'text-red-400' : 'text-amber-400'}`}>{selectedAlert.coercion_label}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium font-sans">TIMESTAMP   :</span> <span className="text-white font-semibold font-mono">{selectedAlert.timestamp}</span>
+                  </div>
+                </div>
               </div>
-              <div className="mt-4 space-y-2 text-xs">
-                <div>
-                  <span className="text-slate-400">SESSION ID  :</span> <span className="text-white">{selectedAlert.session_id}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400">CUSTOMER ID :</span> <span className="text-white">{selectedAlert.customer_id}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400">BENEFICIARY :</span> <span className="text-white">{selectedAlert.beneficiary}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400">TX AMOUNT   :</span> <span className="text-white">₹{selectedAlert.amount.toLocaleString('en-IN')}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400">COERCION LBL:</span> <span className={`font-semibold ${selectedAlert.coercion_label === 'SCAM_GUIDED' ? 'text-red-400' : 'text-amber-400'}`}>{selectedAlert.coercion_label}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400">TIMESTAMP   :</span> <span className="text-white">{selectedAlert.timestamp}</span>
-                </div>
+            ) : (
+              <div className="rounded-[2rem] border border-cyan-500/10 bg-slate-950/40 p-6 text-center text-slate-500 text-xs shadow-sm font-mono">
+                Select an alert from the Threat Feed to inspect deep behavior metrics.
               </div>
-            </div>
-          ) : (
-            <div className="rounded-[2rem] border border-slate-800 bg-slate-900/50 p-6 text-center text-slate-500 text-xs">
-              Select an alert from the Threat Feed to inspect deep behavior metrics.
-            </div>
-          )}
+            )}
 
-          {/* Component Risk Signal Rails */}
-          {selectedAlert && <RiskSignalRail signals={signals} />}
+            {/* Component Risk Signal Rails */}
+            {selectedAlert && <RiskSignalRail signals={signals} />}
+          </div>
 
-          {/* Explainability Insight Box */}
-          {selectedAlert && (
-            <FraudInsightPanel
-              title={selectedAlert.coercion_label === 'SCAM_GUIDED' ? 'Critical Scam Intercept' : 'Coercion Evaluation'}
-              summary={selectedAlert.summary}
-              bullets={selectedAlert.explanation}
-            />
-          )}
+          {/* Explainability Insight Box & Timeline side-by-side on tablet/laptop but stacked on xl and mobile */}
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-1">
+            {/* Explainability Insight Box */}
+            {selectedAlert && (
+              <FraudInsightPanel
+                title={selectedAlert.coercion_label === 'SCAM_GUIDED' ? 'Critical Scam Intercept' : 'Coercion Evaluation'}
+                summary={selectedAlert.summary}
+                bullets={selectedAlert.explanation}
+              />
+            )}
 
-          {/* Timeline chart */}
-          {selectedAlert && <FraudTimeline events={timelineEvents} />}
+            {/* Timeline chart */}
+            {selectedAlert && <FraudTimeline events={timelineEvents} />}
+          </div>
         </aside>
       </div>
     </div>

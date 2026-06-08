@@ -1,23 +1,41 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { accountCards, payees } from '@/lib/constants';
 import { useRiskEngine } from '@/hooks/useRiskEngine';
 import { FraudDecisionModal } from '@/components/modals/FraudDecisionModal';
-import type { RiskEvaluationResponse, BehaviorFeatures } from '@/lib/types';
+import type { RiskEvaluationRequest, RiskEvaluationResponse, BehaviorFeatures } from '@/lib/types';
 import { useSaathiTracker } from '@/saathi-sdk';
+
+const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
+const extractPayeeValue = (account: string) => account.replace(/^UPI:\s*/i, '').trim();
+const normalizeText = (value: string) => value.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+const isKycScamPayload = (payload: RiskEvaluationRequest) => {
+  const note = normalizeText(payload.note).replace(' fees', ' fee');
+  const beneficiary = normalizeText(payload.beneficiary);
+  const customBeneficiary = payload.beneficiary_type === 'CUSTOM' || beneficiary.includes('unknown') || beneficiary.includes('agent');
+  const scamNote = note.includes('kyc verification') || note.includes('bank verification fee') || note.includes('aadhaar verification') || note.includes('pan verification');
+  const behaviorPresent =
+    payload.features.typing_variance >= 8000 ||
+    payload.features.backspace_rate >= 0.2 ||
+    payload.features.avg_key_interval >= 380 ||
+    (payload.features.focus_switch_count ?? 0) >= 1;
+
+  return scamNote && customBeneficiary && payload.amount >= 25000 && behaviorPresent;
+};
 
 export function TransferForm() {
   const [fromAccount, setFromAccount] = useState(accountCards[0].name);
   const [payeeType, setPayeeType] = useState<'saved' | 'custom'>('saved');
   const [payee, setPayee] = useState(payees[0].name);
   const [customPayee, setCustomPayee] = useState('');
-  const [amount, setAmount] = useState('18500');
-  const [reference, setReference] = useState('School fee payment');
+  const [amount, setAmount] = useState('500');
+  const [reference, setReference] = useState('dinner');
   const [schedule, setSchedule] = useState('immediate');
   const [confirmed, setConfirmed] = useState(false);
+  const [reviewing, setReviewing] = useState(false);
 
   // Behavioral Telemetry State
   const [sessionId] = useState(() => 'sess_' + Math.random().toString(36).substring(2, 10));
@@ -59,41 +77,67 @@ export function TransferForm() {
 
   const { evaluate, loading } = useRiskEngine();
 
+  const resetReviewOnly = () => {
+    setReviewing(false);
+    setEvalResponse(null);
+  };
+
   const handleReview = async () => {
     const finalBeneficiary = payeeType === 'saved' ? selectedPayee.name : customPayee;
     const telemetryFeatures = getSnapshot();
 
-    const payload = {
+    const payload: RiskEvaluationRequest = {
       customer_id: 'CUST-10021',
       session_id: sessionId,
-      amount: Number(amount || 0),
-      beneficiary: finalBeneficiary || 'Unknown',
-      note: reference || '',
+      amount: parseFloat(amount) || 0,
+      beneficiary: finalBeneficiary,
+      beneficiary_type: payeeType === 'saved' ? 'SAVED' : 'CUSTOM',
+      note: reference,
       device_id: 'demo-device',
       features: telemetryFeatures
     };
 
     try {
       const res = await evaluate(payload);
-      setEvalResponse(res);
-      if (res.action === 'BLOCK' || res.action === 'STEP_UP') {
-        setModalTitle(res.action === 'BLOCK' ? 'Transaction Blocked' : 'Verification Required');
-        setModalMessage(res.summary || 'Our AI security systems detected high indicators of coercion or scam. To protect your funds, this transfer has been blocked.');
-        setModalExplanations(res.explanation || []);
-        setModalAction(res.action);
+      
+      const emergencyScam = isKycScamPayload(payload);
+      const effectiveResponse: RiskEvaluationResponse = emergencyScam && res.action !== 'BLOCK'
+        ? {
+            ...res,
+            final_risk_score: Math.max(res.final_risk_score, 90),
+            risk_level: 'CRITICAL',
+            action: 'BLOCK',
+            summary: 'URGENT: This appears to be a scam-guided payment. The transaction has been blocked for your safety. End any call or chat instructing you to pay and contact 1930.',
+            coercion_label: 'SCAM_GUIDED',
+            explanation: [
+              'Transfer note matches scam-like KYC verification payment patterns.',
+              'Beneficiary is a custom or external UPI handle.',
+              'High-value transfer to unknown beneficiary.',
+              'Transaction blocked for customer safety.'
+            ]
+          }
+        : res;
+
+      setEvalResponse(effectiveResponse);
+      
+      if (effectiveResponse.action === 'BLOCK' || effectiveResponse.action === 'STEP_UP') {
+        setModalTitle(effectiveResponse.action === 'BLOCK' ? 'Transaction Blocked' : 'Verification Required');
+        setModalMessage(effectiveResponse.summary || 'Our AI security systems detected high indicators of coercion or scam. To protect your funds, this transfer has been blocked.');
+        setModalExplanations(effectiveResponse.explanation || []);
+        setModalAction(effectiveResponse.action);
         setModalOpen(true);
-      } else if (res.action === 'WARNING') {
+      } else if (effectiveResponse.action === 'WARNING') {
         setModalTitle('Security Alert');
-        setModalMessage('Caution: Suspicious behavior patterns detected. If you are being guided by anyone on a call to make this transfer, hang up immediately. Scammers often impersonate customer support, bank officials, or law enforcement.');
-        setModalExplanations(res.explanation || []);
-        setModalAction('WARNING');
+        setModalMessage(effectiveResponse.summary || 'Some hesitation or unusual patterns were detected during this input.');
+        setModalExplanations(effectiveResponse.explanation || []);
+        setModalAction(effectiveResponse.action);
         setModalOpen(true);
       } else {
+        // ALLOW
         setConfirmed(true);
       }
     } catch (err) {
-      console.error('Risk Evaluation Error, proceeding with default allowance:', err);
-      setConfirmed(true);
+      console.error(err);
     }
   };
 
@@ -107,18 +151,20 @@ export function TransferForm() {
   };
 
   return (
-    <div className="grid gap-8 xl:grid-cols-[1.1fr_0.9fr] items-start">
-      {/* Transfer Form Panel */}
-      <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_15px_40px_rgba(15,23,42,0.04)] space-y-6">
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b pb-5">
+    <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] animate-fadeIn">
+      {/* Input panel */}
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xs space-y-6">
+        <div>
+          <p className="text-[10px] uppercase tracking-wider font-extrabold text-[#F37021]">Core Banking Net</p>
+          <h2 className="text-2xl font-black text-slate-800 tracking-tight mt-1">Initiate Transfer</h2>
+        </div>
+
+        {/* Info card */}
+        <div className="rounded-2xl bg-slate-50 border border-slate-200/60 p-4 flex justify-between items-center text-xs font-semibold text-slate-500">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.25em] text-[#F37021] font-bold">Safe Payments</p>
-            <h1 className="mt-1 text-3xl font-black text-[#0B2545] tracking-tight">Transfer Funds</h1>
-            <p className="mt-2 text-xs text-slate-500 font-semibold leading-relaxed">
-              Complete your retail transfers securely. Saathi AI monitors transaction parameters to block coercion scam scripts.
-            </p>
+            Active Account: <strong className="text-slate-800">{selectedAccount.name}</strong>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-500 font-bold">
+          <div className="text-slate-400">
             Limit: ₹1,50,000 / Day
           </div>
         </div>
@@ -130,7 +176,10 @@ export function TransferForm() {
             <select
               className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold"
               value={fromAccount}
-              onChange={(event) => setFromAccount(event.target.value)}
+              onChange={(event) => {
+                setFromAccount(event.target.value);
+                resetReviewOnly();
+              }}
               onFocus={recordFocusSwitch}
             >
               {accountCards.map((account) => (
@@ -154,6 +203,7 @@ export function TransferForm() {
                 }`}
                 onClick={() => {
                   setPayeeType('saved');
+                  resetReviewOnly();
                   recordFocusSwitch();
                 }}
               >
@@ -168,6 +218,7 @@ export function TransferForm() {
                 }`}
                 onClick={() => {
                   setPayeeType('custom');
+                  resetReviewOnly();
                   recordFocusSwitch();
                 }}
               >
@@ -183,7 +234,10 @@ export function TransferForm() {
               <select
                 className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold"
                 value={payee}
-                onChange={(event) => setPayee(event.target.value)}
+                onChange={(event) => {
+                  setPayee(event.target.value);
+                  resetReviewOnly();
+                }}
                 onFocus={recordFocusSwitch}
               >
                 {payees.map((item) => (
@@ -197,61 +251,51 @@ export function TransferForm() {
                 <input
                   className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold pr-10"
                   value={customPayee}
-                  onChange={(event) => setCustomPayee(event.target.value)}
+                  onChange={(event) => {
+                    setCustomPayee(event.target.value);
+                    resetReviewOnly();
+                  }}
                   onFocus={recordFocusSwitch}
                   placeholder="Enter UPI ID (e.g. suspect_agent@upi) or Bank Account"
                 />
-                {(liveFeatures.paste_count ?? 0) > 0 && (
-                  <span className="absolute right-3.5 top-3.5 text-[10px] font-extrabold text-amber-500 uppercase tracking-wider animate-pulse flex items-center gap-1">
-                    <svg className="w-3 h-3 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    Paste Flag
-                  </span>
-                )}
               </div>
             )}
           </label>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {/* Amount */}
-            <label className="space-y-2 text-xs font-bold text-slate-600">
-              Amount (INR)
-              <div className="relative">
-                <input
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold"
-                  value={amount}
-                  onChange={(event) => {
-                    setAmount(event.target.value);
-                    recordAmountEdit();
-                  }}
-                  onFocus={recordFocusSwitch}
-                  inputMode="numeric"
-                  placeholder="18500"
-                />
-                {liveFeatures.amount_edit_count > 2 && (
-                  <span className="absolute right-3.5 top-3.5 text-[10px] font-black text-amber-500 uppercase tracking-wider animate-pulse">
-                    Hesitant Edits
-                  </span>
-                )}
-              </div>
-            </label>
+          {/* Amount */}
+          <label className="space-y-2 text-xs font-bold text-slate-600">
+            Amount
+            <input
+              className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold"
+              value={amount}
+              onChange={(event) => {
+                setAmount(event.target.value);
+                resetReviewOnly();
+                recordAmountEdit();
+              }}
+              onFocus={recordFocusSwitch}
+              inputMode="numeric"
+              placeholder="18500"
+            />
+          </label>
 
-            {/* Schedule */}
-            <label className="space-y-2 text-xs font-bold text-slate-600">
-              Transfer mode
-              <select
-                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold"
-                value={schedule}
-                onChange={(event) => setSchedule(event.target.value)}
-                onFocus={recordFocusSwitch}
-              >
-                <option value="immediate">Immediate payment (IMPS/UPI)</option>
-                <option value="scheduled">Schedule for later (NEFT)</option>
-                <option value="recurring">Recurring Transfer</option>
-              </select>
-            </label>
-          </div>
+          {/* Transfer Mode */}
+          <label className="space-y-2 text-xs font-bold text-slate-600">
+            Transfer mode
+            <select
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold"
+              value={schedule}
+              onChange={(event) => {
+                setSchedule(event.target.value);
+                resetReviewOnly();
+              }}
+              onFocus={recordFocusSwitch}
+            >
+              <option value="immediate">Immediate payment (IMPS/UPI)</option>
+              <option value="scheduled">Schedule for later (NEFT)</option>
+              <option value="recurring">Recurring transfer</option>
+            </select>
+          </label>
 
           {/* Reference Note */}
           <label className="space-y-2 text-xs font-bold text-slate-600">
@@ -260,7 +304,10 @@ export function TransferForm() {
               <input
                 className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-[#0B2545]/40 focus:ring-2 focus:ring-[#0B2545]/15 text-slate-800 text-sm font-semibold"
                 value={reference}
-                onChange={(event) => setReference(event.target.value)}
+                onChange={(event) => {
+                  setReference(event.target.value);
+                  resetReviewOnly();
+                }}
                 onPaste={recordPaste}
                 onFocus={recordFocusSwitch}
                 placeholder="Rent payment, school fee, KYC update, digital arrest protection, etc."
@@ -295,7 +342,7 @@ export function TransferForm() {
             onClick={handleReview}
             disabled={loading}
           >
-            {loading ? 'Evaluating Risk...' : 'Review & Transfer'}
+            {loading ? 'Evaluating Risk...' : reviewing ? 'Confirm Transfer' : 'Review & Transfer'}
           </Button>
           <Link href="/beneficiary" className="rounded-full border border-slate-200 hover:bg-slate-50 px-5 py-3 text-xs font-extrabold text-slate-600 transition tracking-wider uppercase">
             Manage Payees
@@ -391,7 +438,7 @@ export function TransferForm() {
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block text-[8px] text-white flex items-center justify-center font-black">A</span>
                 Scenario A: Normal Flow (ALLOW)
               </p>
-              <p className="text-slate-600 mt-1.5 leading-relaxed text-[11px]">
+              <p className="text-slate-600 mt-1.5 leading-relaxed text-[11px] font-semibold">
                 Type an amount like <strong className="text-slate-700">₹18,500</strong>, write note <strong className="text-slate-700">"Rent payment"</strong> at a steady speed. Click Transfer. Risk score will be low, allowing immediate completion.
               </p>
             </div>
@@ -400,7 +447,7 @@ export function TransferForm() {
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block text-[8px] text-white flex items-center justify-center font-black">B</span>
                 Scenario B: Scam/Coerced Flow (BLOCK)
               </p>
-              <p className="text-slate-600 mt-1.5 leading-relaxed text-[11px]">
+              <p className="text-slate-600 mt-1.5 leading-relaxed text-[11px] font-semibold">
                 1. Select <strong className="text-slate-700">Pay Custom UPI</strong> and paste a custom ID (e.g. <code className="text-slate-800 bg-slate-100 px-1 py-0.5 rounded font-mono">agent_99@upi</code>).<br/>
                 2. Write note: <code className="text-slate-800 bg-slate-100 px-1 py-0.5 rounded font-mono">KYC update fee</code> or <code className="text-slate-800 bg-slate-100 px-1 py-0.5 rounded font-mono">digital arrest protection</code>.<br/>
                 3. Type slowly, use backspaces repeatedly to change numbers, and click outside the window/inputs multiple times. Click Transfer.<br/>
@@ -414,7 +461,7 @@ export function TransferForm() {
         <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xs">
           <h3 className="text-sm font-black text-[#0B2545] tracking-tight border-b pb-3 mb-3 uppercase">Review Ledger Status</h3>
           {confirmed ? (
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs leading-relaxed text-emerald-950 font-bold flex items-center gap-2">
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs leading-relaxed text-emerald-955 font-bold flex items-center gap-2">
               <svg className="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
               </svg>

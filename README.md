@@ -9,7 +9,13 @@ Saathi is an enterprise-pattern showcase demonstrating how an adaptive, privacy-
 > 
 > 📚 **Documentation & Walkthrough**: For an in-depth guide on how Saathi AI operates, telemetry capture metrics, risk-policy fusion mechanics, and testing walk-throughs (including normal and coerced transfer scenarios), check out the [Saathi AI Testing and Understanding Guide](docs/testing-and-understanding.md).
 
----
+- Mock internet banking frontend for Innovate Bank built with Next.js 14, TypeScript, Tailwind CSS, Zustand, Axios, and Recharts.
+- Saathi browser SDK that captures behavioral signals locally and sends feature vectors, not raw sensitive inputs.
+- FastAPI backend with layered services for anomaly detection, scam note classification, hesitation analysis, coercion detection, risk fusion, and policy decisions.
+- Fraud operations dashboard with alerts, scores, explanations, and chart-based monitoring.
+- JSON-backed demo alert persistence under `backend/storage/risk_alerts.json` (or database persistence when running with SQLite).
+- Demo scenario endpoints for normal, suspicious, and scam-coercion payment flows.
+- Sample data, scripts, Docker compose, and documentation for hackathon-style demos.
 
 ## 💻 Tech Stack & Architecture
 
@@ -131,6 +137,42 @@ To demonstrate the system's accuracy, test the transfer form under different sim
 - **Expected Action**: **BLOCK** (Risk Score > 80, showing warning detail explanation and blocking transaction completion).
 
 ---
+
+## 📄 Licensing
+
+- `GET /health`
+- `POST /risk/evaluate`
+- `POST /demo/run-scenario`
+- `POST /demo/reset`
+- `GET /federated/status`
+- `GET /admin/overview`
+- `GET /admin/models`
+- `GET /dashboard/alerts`
+- `GET /dashboard/stats`
+
+Full request and response examples live in [docs/api-spec.md](docs/api-spec.md).
+
+## Backend commands
+
+```bash
+cd backend
+pip install -r requirements.txt
+python -m pytest
+python ../scripts/train-models.py
+uvicorn app.main:app --reload --port 8000
+```
+
+## What is real vs simulated
+
+- Risk evaluation is a working hybrid of lightweight ML artifacts, fallback heuristics, and rules.
+- Saved `.joblib` artifacts are loaded when present; safe fallbacks run if artifacts are missing or unusable.
+- Alerts are persisted to a local JSON file or SQLite database for demo continuity.
+- Federated learning status is simulated and explicitly reports that no raw behavioral data is uploaded.
+- Authentication and banking flows are demo-only mocks.
+
+## Notes
+
+This repository is intentionally designed as a realistic proof-of-concept for a security review or hackathon pitch. It should be integrated into an existing banking portal rather than used as a standalone retail banking application.
 
 ## 📄 Licensing
 

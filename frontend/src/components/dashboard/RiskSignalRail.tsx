@@ -15,7 +15,7 @@ const toneClasses = {
 export function RiskSignalRail({ signals }: RiskSignalRailProps) {
   return (
     <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-semibold">Component scores</h2>
+      <h2 className="text-xl font-semibold text-[#0B2545]">Component scores</h2>
       <div className="mt-5 space-y-4">
         {signals.map((signal) => (
           <div key={signal.label} className={`rounded-2xl border px-4 py-3 ${toneClasses[signal.tone]}`}>

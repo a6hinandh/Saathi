@@ -17,17 +17,26 @@ export interface RiskEvaluationRequest {
   session_id: string;
   amount: number;
   beneficiary: string;
+  beneficiary_type?: 'SAVED' | 'CUSTOM';
   note: string;
   device_id?: string;
   features: BehaviorFeatures;
 }
 
 export interface RiskEvaluationResponse {
+  request_id?: string;
+  alert_id?: string;
+  timestamp?: string;
   final_risk_score: number;
   risk_level: string;
   action: string;
   summary: string;
   components: Record<string, number>;
   explanation: string[];
+  structured_explanation?: Array<{
+    factor: string;
+    evidence: string;
+    impact: string;
+  }>;
   coercion_label?: string;
 }

@@ -121,7 +121,7 @@ export default function HomePage() {
                 Empowered by <span className="text-[#F37021] relative inline-block">Saathi AI<span className="absolute bottom-1 left-0 w-full h-1.5 bg-[#F37021]/20 -z-1"></span></span>
               </h1>
               <p className="max-w-2xl text-base leading-7 text-slate-600 md:text-lg">
-                Experience India's first internet banking portal with integrated real-time coercion defense. Protect your transfers from cyber-fraud guide, digital arrest threats, and unauthorized actions.
+                Experience India&apos;s first internet banking portal with integrated real-time coercion defense. Protect your transfers from cyber-fraud guide, digital arrest threats, and unauthorized actions.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
