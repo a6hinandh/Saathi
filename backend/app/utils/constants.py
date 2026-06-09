@@ -5,6 +5,14 @@ POLICY_THRESHOLDS = {
     'BLOCK': 100
 }
 
+HIGH_VALUE_STEP_UP_THRESHOLD = 50000
+
+FAMILY_EMERGENCY_KEYWORDS = [
+    'medical bill', 'hospital payment', 'surgery fund',
+    'emergency loan', 'medical', 'hospital', 'surgery',
+    'emergency'
+]
+
 SCAM_NOTE_KEYWORDS = [
     'kyc verification',
     'kyc verification fee',

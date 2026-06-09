@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from ..models.schemas import BehaviorFeatures
-from ..utils.constants import SCAM_NOTE_KEYWORDS
+from ..utils.constants import FAMILY_EMERGENCY_KEYWORDS, SCAM_NOTE_KEYWORDS
 from .anomaly_detection import AnomalyResult
 from .hesitation_engine import HesitationResult
 from .scam_classifier import ScamResult
@@ -82,6 +82,11 @@ class CoercionEngine:
             )
         ):
             score = max(score, 0.85)
+        # Family emergency scam pattern: emergency plea + external beneficiary + high amount + hesitation
+        is_emergency_pattern = any(kw in normalized_note for kw in FAMILY_EMERGENCY_KEYWORDS)
+        if is_emergency_pattern and external_or_unknown and amount >= 15000 and features.hesitation_delay >= 12:
+            score = max(score, 0.78)
+
         label = 'SCAM_GUIDED' if score >= 0.75 else 'SUSPICIOUS' if score >= 0.45 else 'NORMAL'
         explanation = 'Possible scam-guided payment detected' if label == 'SCAM_GUIDED' else 'Signals do not strongly indicate coercion.'
         return CoercionResult(score=score, label=label, explanation=explanation)

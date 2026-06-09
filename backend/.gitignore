@@ -1,10 +1,37 @@
+# Python
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+
+# Virtual environments
 .venv/
 venv/
 env/
+
+# Environment files
 .env
 .env.*
 !.env.example
+
+# Runtime/database files
+*.db
+*.sqlite
+*.sqlite3
+storage/
+logs/
+*.log
+
+# ML generated artifacts
+app/ml/artifacts/*.joblib
+app/ml/artifacts/*.pkl
+app/ml/artifacts/*.pickle
+app/ml/artifacts/*.pt
+app/ml/artifacts/*.pth
+app/ml/artifacts/*.onnx
+
+# Generated ML reports
+app/ml/reports/*.json
+app/ml/reports/*.md
+!app/ml/reports/.gitkeep

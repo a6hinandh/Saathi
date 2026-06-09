@@ -16,6 +16,7 @@ from ...services.risk_fusion import RiskFusionEngine
 from ...services.scam_classifier import ScamNoteClassifier, contains_scam_keyword
 from ...services.transaction_risk import TransactionRiskService
 from ...services.device_risk import DeviceRiskService
+from ...utils.constants import HIGH_VALUE_STEP_UP_THRESHOLD
 from ...utils.logger import get_logger
 from ...services.shap_service import ShapExplainer
 
@@ -212,7 +213,7 @@ def evaluate_risk(
             saved_beneficiary
             and benign_note_context
             and behavior_high
-            and request.amount >= 5000
+            and (request.amount >= 5000 or anomaly.score >= 0.80 or request.features.typing_variance >= 12000)
         ):
             policy_gate = 'SUSPICIOUS_BEHAVIOR_STEP_UP'
             if coercion.label == 'SCAM_GUIDED':
@@ -221,6 +222,29 @@ def evaluate_risk(
             fusion.risk_level = 'HIGH'
             fusion.action = 'STEP_UP'
             fusion.summary = 'Step-up verification required due to behavioral anomaly.'
+        elif (
+            request.amount >= 25000
+            and custom_or_unknown
+            and request.features.typing_variance <= 500
+            and request.features.backspace_rate <= 0.10
+            and request.features.hesitation_delay <= 5
+            and request.features.amount_edit_count <= 1
+            and not contains_scam_keyword(request.note)
+        ):
+            policy_gate = 'MULE_STEP_UP'
+            fusion.final_risk_score = max(fusion.final_risk_score, 65)
+            fusion.risk_level = 'HIGH'
+            fusion.action = 'STEP_UP'
+            fusion.summary = 'High-value transfer to new beneficiary flagged for verification.'
+        elif (
+            request.amount >= HIGH_VALUE_STEP_UP_THRESHOLD
+            and not (request.amount <= 1000 and saved_beneficiary and scam.probability < 0.3)
+        ):
+            policy_gate = 'HIGH_VALUE_STEP_UP'
+            fusion.final_risk_score = max(fusion.final_risk_score, 65)
+            fusion.risk_level = 'HIGH'
+            fusion.action = 'STEP_UP'
+            fusion.summary = 'Very high-value transfer requires additional verification.'
         elif (
             request.amount <= 1000
             and saved_beneficiary
@@ -256,6 +280,7 @@ def evaluate_risk(
             explanations.append('High-value transfer to unknown beneficiary.')
             explanations.append('Transaction blocked for customer safety.')
 
+        shap_full = shap_explainer.full_explanation(components, request.features, fusion.final_risk_score)
         metadata = {
             'scam_label': scam.label,
             'anomaly_explanation': anomaly.explanation,
@@ -267,7 +292,12 @@ def evaluate_risk(
             },
             'policy_gate': policy_gate,
             'raw_sensitive_data_logged': False,
-            'shap_explanation': shap_explainer.full_explanation(components, request.features, fusion.final_risk_score)
+            'shap_explanation': shap_full,
+            'ml_diagnostics': {
+                'scam_classifier': scam.ml_diagnostics,
+                'anomaly_detector': anomaly.ml_diagnostics,
+                'shap': shap_explainer.shap_diagnostics(components, fusion.final_risk_score)
+            }
         }
     except Exception as exc:
         logger.exception('Risk evaluation failed; using safe fallback: %s', exc)
