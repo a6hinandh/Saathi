@@ -28,11 +28,12 @@ class RiskFusionEngine:
             score = 98.0
         if (
             components.behavior_anomaly >= 0.80
-            and components.hesitation_risk >= 0.50
             and components.scam_note_probability <= 0.35
             and coercion_label != 'SCAM_GUIDED'
         ):
-            score = max(score, 65.0)
+            score = max(score, 55.0)
+            if components.hesitation_risk >= 0.30:
+                score = max(score, 65.0)
         final_score = max(0, min(100, int(round(score))))
         if final_score <= 30:
             risk_level, action = 'LOW', 'ALLOW'

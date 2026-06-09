@@ -5,13 +5,13 @@ import re
 
 try:
     import joblib
-except Exception:  # pragma: no cover - fallback when joblib is unavailable
+except Exception:
     joblib = None
 
 try:
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.linear_model import LogisticRegression
-except Exception:  # pragma: no cover
+except Exception:
     TfidfVectorizer = None
     LogisticRegression = None
 
@@ -41,6 +41,7 @@ def contains_scam_keyword(note: str) -> bool:
 class ScamResult:
     probability: float
     label: str
+    ml_diagnostics: dict | None = None
 
 
 class ScamNoteClassifier:
@@ -48,6 +49,10 @@ class ScamNoteClassifier:
         self.vectorizer = None
         self.model = None
         self.model_status = 'FALLBACK_HEURISTIC'
+        self.model_version = 'unknown'
+        self.metrics = None
+        self.feature_count = None
+        self.synthetic_data_warning = None
         self.artifact_path: str | None = None
 
         if self._load_artifact():
@@ -79,6 +84,11 @@ class ScamNoteClassifier:
             if isinstance(artifact, dict):
                 self.vectorizer = artifact.get('vectorizer')
                 self.model = artifact.get('classifier')
+                self.model_version = artifact.get('model_version', 'unknown')
+                self.metrics = artifact.get('metrics')
+                self.synthetic_data_warning = artifact.get('synthetic_data_warning')
+                feature_names = artifact.get('feature_names')
+                self.feature_count = len(feature_names) if feature_names else None
             if self.vectorizer is None or self.model is None:
                 return False
             self.model_status = 'LOADED_FROM_ARTIFACT'
@@ -93,7 +103,10 @@ class ScamNoteClassifier:
             'type': 'TF-IDF + LogisticRegression',
             'status': self.model_status,
             'artifact_path': self.artifact_path,
-            'fallback_available': True
+            'fallback_available': True,
+            'model_version': self.model_version,
+            'feature_count': self.feature_count,
+            'has_metrics': self.metrics is not None
         }
 
     def _heuristic_probability(self, normalized: str, keyword_hits: int) -> float:
@@ -102,19 +115,48 @@ class ScamNoteClassifier:
     def predict(self, note: str) -> ScamResult:
         normalized = normalize_note(note)
         keyword_hits = sum(1 for keyword in SCAM_NOTE_KEYWORDS if normalize_note(keyword) in normalized)
+        reason_codes = []
+
+        raw_model_score = None
+        model_inference_ok = False
         if self.model is not None and self.vectorizer is not None:
             try:
-                probability = float(self.model.predict_proba(self.vectorizer.transform([note or '']))[0][1])
+                raw_model_score = float(self.model.predict_proba(self.vectorizer.transform([note or '']))[0][1])
+                model_inference_ok = True
             except Exception as exc:
                 logger.warning('Scam note model inference failed, using fallback heuristic: %s', exc)
-                probability = self._heuristic_probability(normalized, keyword_hits)
+
+        if model_inference_ok:
+            probability = raw_model_score
         else:
             probability = self._heuristic_probability(normalized, keyword_hits)
+            reason_codes.append('fallback_heuristic_baseline')
+
         if 'upi' in normalized and keyword_hits:
             probability = min(0.99, probability + 0.12)
+            reason_codes.append('upi_keyword_boost')
+
         if normalized in {'dinner', 'rent payment', 'school fees', 'transfer to family'} and keyword_hits == 0:
             probability = min(probability, 0.18)
+            reason_codes.append('known_benign_cap')
+
         if keyword_hits:
-            probability = max(probability, min(0.95, 0.62 + 0.1 * keyword_hits))
+            floor = min(0.95, 0.62 + 0.1 * keyword_hits)
+            probability = max(probability, floor)
+            reason_codes.append('keyword_floor')
+
+        heuristic_adjustment = round(probability - (raw_model_score if model_inference_ok else 0), 4) if model_inference_ok else None
+
         label = 'SCAM_LIKE' if probability >= 0.6 else 'BENIGN'
-        return ScamResult(probability=round(probability, 2), label=label)
+
+        diagnostics = {
+            'raw_model_score': round(raw_model_score, 4) if model_inference_ok else None,
+            'heuristic_adjustment': heuristic_adjustment,
+            'keyword_hits': keyword_hits,
+            'reason_codes': reason_codes,
+            'model_provided_score': model_inference_ok,
+            'final_probability': round(probability, 4),
+            'model_status': self.model_status
+        }
+
+        return ScamResult(probability=round(probability, 2), label=label, ml_diagnostics=diagnostics)
