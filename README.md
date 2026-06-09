@@ -141,16 +141,14 @@ The policy suite validates expected rule behavior. The challenge suite contains 
 ```bash
 cd backend
 python -m venv .venv
-
-# Windows
-.venv\Scripts\activate
-
-# macOS/Linux
-source .venv/bin/activate
-
+.venv\Scripts\activate      # Windows
+# source .venv/bin/activate  # macOS/Linux
 pip install -r requirements.txt
 
+# Train ML models
 python scripts/train-models.py
+
+# Launch API server
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -162,65 +160,76 @@ npm install
 npm run dev
 ```
 
-Open the frontend at:
+Open http://localhost:3000 to access the banking portal.
 
-```text
-http://localhost:3000
-```
+## Benchmark Results
 
-## Run Tests
+All benchmarks run on synthetic data. Metrics do **not** represent real-world fraud detection accuracy.
 
-```bash
-cd backend
-python -m pytest
-```
+| Metric | Policy Suite (57 scenarios) | Challenge Suite (35 scenarios) |
+|--------|---------------------------|-------------------------------|
+| Action Accuracy | 1.000 | 0.714 |
+| Risk Level Accuracy | 1.000 | 0.629 |
+| Score-in-Range Accuracy | 1.000 | 0.800 |
+| Overall Accuracy | 1.000 | 0.429 |
+| Risky Precision | 1.000 | 0.778 |
+| Risky Recall | 1.000 | 1.000 |
+| Risky F1 | 1.000 | 0.875 |
 
-## Run Benchmarks
+- **Policy Suite**: Regression tests for rule consistency — near-perfect scores are expected.
+- **Challenge Suite**: Adversarial edge cases — lower scores reveal known limitations.
 
+Run benchmarks:
 ```bash
 cd backend
 python -m app.ml.evaluation.run_benchmark --suite all
 ```
 
-## Demo Scenarios
+## API Endpoints
 
-The project includes walkthroughs for:
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/risk/evaluate` | POST | Evaluate a payment for fraud risk |
+| `/health` | GET | Service health check |
+| `/admin/overview` | GET | Dashboard overview |
+| `/admin/models` | GET | Model metadata & diagnostics |
+| `/dashboard/stats` | GET | Aggregate statistics |
+| `/dashboard/alerts` | GET | Active alerts list |
 
-1. Normal transaction → `ALLOW`
-2. Suspicious transaction → `WARNING`
-3. Coerced transaction → `STEP_UP`
-4. KYC scam pattern → `BLOCK`
-5. Admin dashboard and model diagnostics
+Full API contract in [backend/docs/api_contract.md](backend/docs/api_contract.md).
+
+## Demonstration Scenarios
+
+See [backend/docs/demo_script.md](backend/docs/demo_script.md) for 5 walkthrough scenarios covering:
+1. Normal transaction → ALLOW
+2. Suspicious transaction → WARNING
+3. Coerced transaction → STEP_UP
+4. KYC scam → BLOCK
+5. Admin model preview dashboard
 
 ## Limitations
 
-Saathi is a prototype and has important limitations:
+- **All training data is synthetic.** Real-world fraud data is not used.
+- **Challenge benchmark** reveals known over-escalation in ambiguous cases (10 of 57 policy scenarios subject to heuristic overrides).
+- No authentication, session management, or production-grade security.
+- Federated learning status is simulated.
+- This is a proof-of-concept for security reviews, hackathons, and portfolio demonstration.
 
-- It does not use real banking or fraud datasets.
-- ML models are trained on synthetic data.
-- The banking portal, ledger, and payment rails are mock simulations.
-- It does not implement production authentication, authorization, encryption, fraud operations, or compliance workflows.
-- The current model can over-escalate ambiguous cases.
-- Benchmark results should not be interpreted as real-world fraud-detection performance.
+## Documentation
 
-## Project Value
+| Document | Description |
+|----------|-------------|
+| [ML Backend](backend/docs/ml_backend.md) | Full ML architecture, diagnostics, SHAP explanation |
+| [Benchmarking](backend/docs/benchmarking.md) | Benchmark suites, metrics, how to run |
+| [Demo Script](backend/docs/demo_script.md) | Step-by-step demo walkthrough |
+| [API Contract](backend/docs/api_contract.md) | Request/response schemas for all endpoints |
+| [Testing Guide](docs/testing-and-understanding.md) | In-depth behavioral test scenarios |
 
-This project demonstrates:
+## Commands Reference
 
-- Full-stack product engineering
-- FastAPI backend design
-- ML model integration into an API
-- Risk scoring and policy-engine design
-- Synthetic benchmark creation
-- Dashboard and admin workflow development
-- Clear separation between prototype logic and production claims
-
-## Future Improvements
-
-- Replace synthetic data with realistic anonymized behavioral datasets
-- Add proper authentication and session management
-- Add model calibration and threshold tuning
-- Improve ambiguous-case handling
-- Add audit logs and case-management workflows
-- Add Docker-based one-command setup
-- Add deployed demo and screenshots
+```bash
+cd backend
+python -m pytest              # Run all tests (58 tests)
+python scripts/train-models.py # Retrain ML models
+python -m app.ml.evaluation.run_benchmark --suite all  # Full benchmark
+```
