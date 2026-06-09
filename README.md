@@ -1,40 +1,138 @@
-# Saathi: AI-Driven Behavioral Authentication & Coercion Defense Overlay
+# Saathi
 
-Saathi is an enterprise-pattern showcase demonstrating an adaptive, privacy-preserving behavioral security overlay for retail internet banking. It senses user interactions, detects coercion or stress (e.g., vishing or digital arrest scams), classifies transaction intent semantics, and enforces real-time policy actions.
+A full-stack behavioral fraud-risk prototype for retail net banking.
 
-> **Showcase & Proof of Work Scope**: This repository is structured as a professional portfolio showcase. The retail banking portal, transaction ledger, and payment rails are mock simulations illustrating integration touchpoints. The behavioral biometrics tracking, database logging, ML pipeline, and policy fusion engines are fully functional.
+Saathi simulates how a banking system could detect high-risk transactions by combining browser interaction telemetry, scam-intent classification, behavioral anomaly detection, and rule-based policy decisions.
+
+The project is built as an engineering prototype, not a production fraud-detection system. It uses synthetic training data and mock banking flows to demonstrate system design, backend ML integration, API design, and fraud-risk dashboarding.
+
+## What It Does
+
+Saathi monitors user interaction patterns during a simulated banking transaction and assigns a fraud-risk decision.
+
+The system can detect signals such as:
+
+- Unusual typing rhythm
+- High hesitation before confirmation
+- Frequent focus switching
+- Paste-heavy behavior
+- Suspicious transaction notes
+- Scam-like payment context
+
+Based on these signals, the backend returns one of four policy actions:
+
+- `ALLOW`
+- `WARNING`
+- `STEP_UP`
+- `BLOCK`
+
+## Why This Project Exists
+
+Many online banking scams do not look like technical account compromise. In cases such as digital arrest scams, KYC fraud, or vishing, the user may technically be logged in correctly but may be acting under pressure.
+
+Saathi explores whether behavioral telemetry and transaction-context signals can be used to flag risky sessions before the payment is completed.
+
+## System Architecture
+
+```text
+Browser Banking UI
+    ↓
+Saathi Telemetry SDK
+    ↓
+FastAPI Risk Engine
+    ├── Behavioral anomaly detector
+    ├── Scam-note classifier
+    ├── Coercion heuristic engine
+    ├── Risk fusion layer
+    └── Policy engine
+            ↓
+ALLOW / WARNING / STEP_UP / BLOCK
+    ↓
+Admin fraud dashboard
+```
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 14, TypeScript, Tailwind CSS, Zustand, Recharts, Axios |
-| Client SDK | Autonomous browser telemetry sensor capturing interaction dynamics |
-| Backend | FastAPI (Python 3.11) |
-| Machine Learning | scikit-learn (IsolationForest, TF-IDF + LogisticRegression), joblib |
-| Database | SQLAlchemy ORM + SQLite |
+| Layer                      | Technology                                                 |
+| -------------------------- | ---------------------------------------------------------- |
+| Frontend                   | Next.js 14, TypeScript, Tailwind CSS                       |
+| State / UI                 | Zustand, Recharts, Axios                                   |
+| Backend                    | FastAPI, Python 3.11                                       |
+| ML                         | scikit-learn, IsolationForest, TF-IDF, Logistic Regression |
+| Database                   | SQLAlchemy, SQLite                                         |
+| Testing                    | Pytest                                                     |
+| Deployment-ready structure | Docker Compose, GitHub Actions                             |
 
-## Architecture
+## Implemented Features
 
-```
-Client Browser
-  └─ Saathi Telemetry SDK → Global capture listeners → POST /risk/evaluate
-FastAPI Risk Engine
-  ├─ IsolationForest (behavioral anomaly)
-  ├─ TF-IDF + LogisticRegression (scam note classifier)
-  ├─ Coercion Heuristics Engine
-  ├─ Weighted Risk Fusion
-  └─ Policy Engine → Action: ALLOW / WARNING / STEP_UP / BLOCK
-Fraud Operations Dashboard
-  └─ Queries stats & alerts via REST API
-```
+### Frontend
 
-### Client SDK (`frontend/src/saathi-sdk`)
-Zero-dependency browser telemetry sensor measuring: keystroke latency, typing variance, backspace rate, focus switches, paste events, hesitation delays, and confirmation pauses. Never logs raw input values, passwords, or coordinates.
+- Simulated retail banking portal
+- Payment flow with risk evaluation
+- Browser telemetry SDK
+- Admin dashboard for alerts and statistics
+- Risk result display and transaction feedback
 
-### ML Core (`backend/app/ml`)
-- **Behavioral Anomaly Detector**: IsolationForest trained on synthetic typing profiles to detect stress patterns
-- **Scam Note Classifier**: LogisticRegression on TF-IDF vectors of transfer reference notes
+### Backend
+
+- `/risk/evaluate` endpoint for transaction risk scoring
+- Behavioral anomaly scoring
+- Scam-note classification
+- Heuristic coercion scoring
+- Weighted risk fusion
+- Policy action generation
+- Dashboard and admin APIs
+- Model metadata and diagnostics endpoint
+
+### ML and Evaluation
+
+- Synthetic-data training pipeline
+- Scam-note classifier using TF-IDF + Logistic Regression
+- Behavioral anomaly detector using IsolationForest
+- Benchmark suites for policy regression and challenge scenarios
+- Reproducible model training commands
+
+## What Is Real vs Simulated
+
+| Component                          | Status                          |
+| ---------------------------------- | ------------------------------- |
+| Browser telemetry capture          | Implemented                     |
+| FastAPI risk engine                | Implemented                     |
+| Risk fusion logic                  | Implemented                     |
+| Scam-note classifier               | Implemented with synthetic data |
+| Behavioral anomaly detector        | Implemented with synthetic data |
+| Admin dashboard                    | Implemented                     |
+| Banking ledger/payment rails       | Mock simulation                 |
+| Federated learning                 | Simulated only                  |
+| Production authentication/security | Not implemented                 |
+| Real-world fraud validation        | Not included                    |
+
+## Benchmark Results
+
+All benchmarks use synthetic scenarios. These results are meant to test system behavior and regression consistency, not real-world fraud-detection accuracy.
+
+| Metric                  | Policy Suite | Challenge Suite |
+| ----------------------- | -----------: | --------------: |
+| Action Accuracy         |        1.000 |           0.714 |
+| Risk Level Accuracy     |        1.000 |           0.629 |
+| Score-in-Range Accuracy |        1.000 |           0.800 |
+| Overall Accuracy        |        1.000 |           0.429 |
+| Risky Precision         |        1.000 |           0.778 |
+| Risky Recall            |        1.000 |           1.000 |
+| Risky F1                |        1.000 |           0.875 |
+
+The policy suite validates expected rule behavior. The challenge suite contains harder edge cases and exposes current limitations in ambiguous scenarios.
+
+## API Endpoints
+
+| Endpoint            | Method | Purpose                        |
+| ------------------- | ------ | ------------------------------ |
+| `/health`           | GET    | Health check                   |
+| `/risk/evaluate`    | POST   | Evaluate transaction risk      |
+| `/admin/overview`   | GET    | Admin dashboard summary        |
+| `/admin/models`     | GET    | Model metadata and diagnostics |
+| `/dashboard/stats`  | GET    | Aggregate fraud statistics     |
+| `/dashboard/alerts` | GET    | Active alert list              |
 
 ## Quick Start
 
